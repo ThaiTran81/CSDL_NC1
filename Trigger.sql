@@ -13,7 +13,7 @@ END
 GO
 
 CREATE TRIGGER TinhTongTien ON dbo.CT_HoaDon
-FOR	INSERT,UPDATE, DELETE AS 
+AFTER INSERT,UPDATE, DELETE AS 
 BEGIN
 	UPDATE dbo.HoaDon
 	SET dbo.HoaDon.TongTien = (
@@ -25,4 +25,67 @@ BEGIN
 	JOIN dbo.HoaDon ON HoaDon.MaHD = i.MaHD 
 END
 GO
-	
+
+-- trigger update soluongton in dbo.SanPham after (insert, update and delete)
+CREATE TRIGGER insert_SoLuongTon ON dbo.CT_HoaDon
+AFTER INSERT AS
+BEGIN
+	UPDATE dbo.SanPham
+	SET dbo.SanPham.SoLuongTon = SoLuongTon - (
+		SELECT i.SoLuong
+        FROM Inserted i
+		WHERE i.MaSP = sp.MaSP
+	)
+	FROM dbo.SanPham sp
+	JOIN Inserted i ON i.MaSP = sp.MaSP
+END
+GO
+
+CREATE TRIGGER delete_SoLuongTon ON dbo.CT_HoaDon
+AFTER DELETE AS
+BEGIN
+	UPDATE dbo.SanPham
+	SET dbo.SanPham.SoLuongTon = SoLuongTon + (
+		SELECT d.SoLuong
+        FROM Deleted d
+		WHERE d.MaSP = sp.MaSP
+	)
+	FROM dbo.SanPham sp
+	JOIN Deleted i ON i.MaSP = sp.MaSP
+END
+GO
+
+CREATE TRIGGER update_SoLuongTon ON dbo.CT_HoaDon
+AFTER UPDATE AS
+BEGIN
+	UPDATE dbo.SanPham
+	SET dbo.SanPham.SoLuongTon = SoLuongTon - (
+		SELECT i.SoLuong
+        FROM Inserted i
+		WHERE i.MaSP = sp.MaSP
+	) + (
+		SELECT d.SoLuong
+        FROM Deleted d
+		WHERE d.MaSP = sp.MaSP
+	)
+	FROM dbo.SanPham sp
+	JOIN Deleted d ON d.MaSP = sp.MaSP
+END
+GO
+
+
+
+--DROP TRIGGER dbo.SoLuongTon
+--DROP TRIGGER insert_SoLuongTon
+--DROP TRIGGER delete_SoLuongTon
+--DROP TRIGGER update_SoLuongTon
+
+----DROP TRIGGER dbo.TinhTongTien
+
+--SELECT	* FROM dbo.HoaDon
+--SELECT	* FROM dbo.CT_HoaDon
+--SELECT * FROM dbo.SanPham
+
+--UPDATE dbo.CT_HoaDon SET SoLuong = '5' WHERE MaSP = '1'
+--UPDATE dbo.CT_HoaDon SET SoLuong = '25' WHERE MaSP = '3'
+--UPDATE dbo.SanPham SET SoLuongTon = '10' WHERE MaSP = '1'
