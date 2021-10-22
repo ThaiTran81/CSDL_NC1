@@ -14,10 +14,10 @@ create table KhachHang(
 	Ten nvarchar(15),
 	NgSinh Date,
 	SoNha varchar(10),
-	Duong varchar(30),
-	Phuong varchar(30),
-	Quan varchar(30),
-	TPho varchar(30),
+	Duong nvarchar(30),
+	Phuong nvarchar(30),
+	Quan nvarchar(30),
+	TPho nvarchar(30),
 	DienThoai varchar(15),
 	primary key(MaKH)
 )
@@ -47,7 +47,7 @@ create table SanPham
 	MaSP varchar(15),
 	TenSP nvarchar(20),
 	SoLuongTon int,
-	Mota nvarchar(100),
+	Mota nvarchar(1024),
 	Gia money,
 	primary key (MaSP)
 )
