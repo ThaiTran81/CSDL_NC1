@@ -1,5 +1,19 @@
 ﻿USE QLHD
 GO 
+--A
+  SELECT *
+FROM HoaDon hd  
+WHERE YEAR( hd.NgayLap) = 2020 
+
+--B
+ SELECT 	*
+FROM	KhachHang KH
+WHERE	KH.TPho like N'Hồ Chí Minh'
+
+--C
+SELECT *
+FROM SANPHAM
+WHERE GIA > 50 AND  GIA < 100000
 
 --D
 SELECT
@@ -37,3 +51,6 @@ HAVING SUM(cthd.ThanhTien) >= (
 	ORDER BY SUM(cthd2.ThanhTien) DESC 
 )
 ORDER BY doanhthu DESC 
+  go
+
+
