@@ -27,23 +27,19 @@ END
 GO
 
 -- update GiaBan of CT_HoaDon after Insert.
-CREATE TRIGGER GiaBan ON dbo.CT_HoaDon
+CREATE TRIGGER insert_GiaBan ON dbo.CT_HoaDon
 AFTER INSERT AS
 BEGIN
 	UPDATE dbo.CT_HoaDon
-	SET GiaBan = (
+	SET dbo.CT_HoaDon.GiaBan = (
 		SELECT sp.Gia 
-		FROM dbo.SanPham sp
-		WHERE sp.MaSP = MaSP
-	) 
+		FROM dbo.SanPham sp JOIN Inserted i
+		ON sp.MaSP = i.MaSP
+	)
 	FROM dbo.CT_HoaDon
 	JOIN Inserted ON CT_HoaDon.MaSP = Inserted.MaSP
-	
 END
 GO
-
-
-
 
 
 -- trigger update soluongton in dbo.SanPham after (insert, update and delete)
@@ -94,20 +90,15 @@ END
 GO
 
 
-
-
+DROP TRIGGER dbo.TinhThanhTien
+DROP TRIGGER dbo.TinhTongTien
+DROP TRIGGER insert_GiaBan
 DROP TRIGGER insert_SoLuongTon
 DROP TRIGGER delete_SoLuongTon
 DROP TRIGGER update_SoLuongTon
-DROP TRIGGER dbo.TinhThanhTien
-DROP TRIGGER dbo.TinhTongTien
-DROP TRIGGER GiaBan
+
 
 SELECT	* FROM dbo.HoaDon
 SELECT	* FROM dbo.CT_HoaDon
 SELECT * FROM dbo.SanPham
-
-UPDATE dbo.CT_HoaDon SET SoLuong = '10' WHERE MaSP = '1'
-UPDATE dbo.CT_HoaDon SET SoLuong = '10' WHERE MaSP = '3'
-UPDATE dbo.CT_HoaDon SET SoLuong = '10' WHERE MaSP = '2'
-UPDATE dbo.SanPham SET SoLuongTon = '10' WHERE MaSP = '1'
+SELECT * FROM dbo.KhachHang
