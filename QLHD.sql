@@ -52,6 +52,7 @@ create table SanPham
 	primary key (MaSP)
 )
 
+
 ALTER TABLE HoaDon
 ADD CONSTRAINT FK_HoaDon_KhachHang
 FOREIGN KEY (MaKH)
@@ -60,4 +61,5 @@ REFERENCES KhachHang(MaKH)
 
 alter table CT_HoaDon add
 CONSTRAINT FK_CTHoaDon_HoaDon FOREIGN KEY (MaHD) REFERENCES HoaDon(MaHD),
-CONSTRAINT FK_CTHoaDon_SanPham FOREIGN KEY (MaSP) REFERENCES SanPham(MaSP) 
+CONSTRAINT FK_CTHoaDon_SanPham FOREIGN KEY (MaSP) REFERENCES SanPham(MaSP),
+CONSTRAINT CK_GiaBan_GiaGiam CHECK (GiaGiam <= GiaBan AND GiaGiam >= 0)

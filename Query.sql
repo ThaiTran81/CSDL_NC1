@@ -1,4 +1,4 @@
-ï»¿USE QLHD
+USE QLHD
 GO 
 --A
   SELECT *
@@ -8,7 +8,7 @@ WHERE YEAR( hd.NgayLap) = 2020
 --B
  SELECT 	*
 FROM	KhachHang KH
-WHERE	KH.TPho like N'Há»“ ChÃ­ Minh'
+WHERE	KH.TPho like N'H? Chí Minh'
 
 --C
 SELECT *
@@ -21,7 +21,7 @@ SELECT
  ,sp.TenSP
  ,sp.SoLuongTon
 FROM SanPham sp
-WHERE sp.SoLuongTon < 100
+WHERE sp.SoLuongTon < 500
 
 
 --E
@@ -39,18 +39,43 @@ HAVING SUM(ct.SoLuong) >= ALL (SELECT
   FROM CT_HoaDon ct1
   GROUP BY ct1.MaSP)
 
+--SELECT SUM(chd.SoLuong) AS sl, chd.MaSP
+--FROM CT_HoaDon chd
+--GROUP BY chd.MaSP
+--HAVING SUM(chd.SoLuong) >= (
+--  SELECT TOP 1 SUM(chd.SoLuong) AS sl
+--  FROM CT_HoaDon chd
+--  GROUP BY chd.MaSP
+--  ORDER BY sl desc
+--)
+--ORDER BY sl desc
+
+
   
---  F
-SELECT cthd.masp, SUM(cthd.ThanhTien) AS doanhthu
-FROM dbo.CT_HoaDon cthd
-GROUP BY cthd.MaSP 
-HAVING SUM(cthd.ThanhTien) >= (
-	SELECT TOP 1 SUM(cthd2.ThanhTien)
-	FROM dbo.CT_HoaDon cthd2
-	GROUP BY cthd2.MaSP
-	ORDER BY SUM(cthd2.ThanhTien) DESC 
+--  F - tiÌm tâìt caÒ saÒn phâÒm coì doanh thu cao nhâìt
+
+SELECT DISTINCT(sp.MaSP), (ban.tongtienban - ban.slban*sp.Gia) AS doanhthu 
+FROM SanPham sp 
+JOIN (
+  SELECT SUM(chd.SoLuong) AS slban, SUM(chd.ThanhTien) AS tongtienban, chd.MaSP
+  FROM CT_HoaDon chd
+  GROUP BY chd.MaSP) ban 
+ON ban.MaSP = sp.MaSP
+WHERE ban.tongtienban - ban.slban*sp.Gia >= (
+  SELECT TOP 1 (ban1.tongtienban1 - ban1.slban1*sp1.Gia) AS doanhthu1
+  FROM SanPham sp1
+  JOIN (
+  SELECT SUM(chd1.SoLuong) AS slban1, SUM(chd1.ThanhTien) AS tongtienban1, chd1.MaSP
+  FROM CT_HoaDon chd1
+  GROUP BY chd1.MaSP) ban1 
+  ON ban1.MaSP = sp1.MaSP
+  ORDER BY doanhthu1 desc
 )
-ORDER BY doanhthu DESC 
-  go
+ORDER BY sp.MaSP
+GO
 
-
+--
+--SELECT COUNT(*) FROM CT_HoaDon chd
+--SELECT COUNT(*) FROM HoaDon hd
+--SELECT COUNT(*) FROM KhachHang kh
+--SELECT COUNT(*) FROM SanPham sp

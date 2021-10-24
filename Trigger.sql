@@ -1,104 +1,136 @@
 ﻿USE QLHD
 GO
 
-create trigger TinhThanhTien on CT_HoaDon 
-after insert, update
-as 
-begin
-	update CT_HoaDon
-	set CT_HoaDon.ThanhTien = (CT_HoaDon.GiaBan-CT_HoaDon.GiaGiam)*CT_HoaDon.SoLuong
-	FROM CT_HoaDon
-    INNER JOIN inserted i on i.MaHD = CT_HoaDon.MaHD and i.MaSP=CT_HoaDon.MaSP
-END
-GO
-
-CREATE TRIGGER TinhTongTien ON dbo.CT_HoaDon
-AFTER INSERT,UPDATE, DELETE AS 
+CREATE TRIGGER TinhThanhTien
+ON CT_HoaDon
+FOR INSERT, UPDATE
+AS
 BEGIN
-	UPDATE dbo.HoaDon
-	SET dbo.HoaDon.TongTien = (
-		SELECT SUM(ThanhTien)
-		FROM dbo.CT_HoaDon
-		WHERE dbo.CT_HoaDon.MaHD = i.MaHD
-	)
-	FROM Inserted i 
-	JOIN dbo.HoaDon ON HoaDon.MaHD = i.MaHD 
+  UPDATE CT_HoaDon
+  SET CT_HoaDon.ThanhTien = (CT_HoaDon.GiaBan - CT_HoaDon.GiaGiam) * CT_HoaDon.SoLuong
+  FROM CT_HoaDon
+  INNER JOIN inserted i
+    ON i.MaHD = CT_HoaDon.MaHD
+    AND i.MaSP = CT_HoaDon.MaSP
 END
 GO
 
--- update GiaBan of CT_HoaDon after Insert.
-CREATE TRIGGER insert_GiaBan ON dbo.CT_HoaDon
-AFTER INSERT AS
+CREATE TRIGGER TinhTongTien
+ON dbo.CT_HoaDon
+FOR INSERT, UPDATE, DELETE
+AS
 BEGIN
-	UPDATE dbo.CT_HoaDon
-	SET dbo.CT_HoaDon.GiaBan = (
-		SELECT sp.Gia 
-		FROM dbo.SanPham sp JOIN Inserted i
-		ON sp.MaSP = i.MaSP
-	)
-	FROM dbo.CT_HoaDon
-	JOIN Inserted ON CT_HoaDon.MaSP = Inserted.MaSP
+  UPDATE dbo.HoaDon
+  SET dbo.HoaDon.TongTien = (SELECT
+      SUM(ThanhTien)
+    FROM dbo.CT_HoaDon
+    WHERE dbo.CT_HoaDon.MaHD = i.MaHD)
+  FROM Inserted i
+  JOIN dbo.HoaDon
+    ON HoaDon.MaHD = i.MaHD
 END
 GO
-
 
 -- trigger update soluongton in dbo.SanPham after (insert, update and delete)
-CREATE TRIGGER insert_SoLuongTon ON dbo.CT_HoaDon
-AFTER INSERT AS
+CREATE TRIGGER insert_SoLuongTon
+ON dbo.CT_HoaDon
+FOR INSERT
+AS
 BEGIN
-	UPDATE dbo.SanPham
-	SET dbo.SanPham.SoLuongTon = SoLuongTon - (
-		SELECT i.SoLuong
-        FROM Inserted i
-		WHERE i.MaSP = sp.MaSP
-	)
-	FROM dbo.SanPham sp
-	JOIN Inserted i ON i.MaSP = sp.MaSP
-END
-GO
-
-CREATE TRIGGER delete_SoLuongTon ON dbo.CT_HoaDon
-AFTER DELETE AS
-BEGIN
-	UPDATE dbo.SanPham
-	SET dbo.SanPham.SoLuongTon = SoLuongTon + (
-		SELECT d.SoLuong
-        FROM Deleted d
-		WHERE d.MaSP = sp.MaSP
-	)
-	FROM dbo.SanPham sp
-	JOIN Deleted i ON i.MaSP = sp.MaSP
-END
-GO
-
-CREATE TRIGGER update_SoLuongTon ON dbo.CT_HoaDon
-AFTER UPDATE AS
-BEGIN
-	UPDATE dbo.SanPham
-	SET dbo.SanPham.SoLuongTon = SoLuongTon - (
-		SELECT i.SoLuong
-        FROM Inserted i
-		WHERE i.MaSP = sp.MaSP
-	) + (
-		SELECT d.SoLuong
-        FROM Deleted d
-		WHERE d.MaSP = sp.MaSP
-	)
-	FROM dbo.SanPham sp
-	JOIN Deleted d ON d.MaSP = sp.MaSP
+  DECLARE @SLT INT
+         ,@SL INT
+  SET @SLT = (SELECT
+      sp.SoLuongTon
+    FROM SanPham sp
+    JOIN INSERTED i
+      ON sp.MaSP = i.MaSP)
+  SET @SL = (SELECT
+      chd.SoLuong
+    FROM CT_HoaDon chd
+    JOIN INSERTED i
+      ON chd.MaHD = i.MaHD
+      AND chd.MaSP = i.MaSP)
+  IF (@SLT - @SL < 0)
+  BEGIN
+    PRINT ('Số lượng tồn không đủ cung cấp')
+    ROLLBACK TRAN;
+  END
+  ELSE
+    UPDATE SanPham
+    SET SanPham.SoLuongTon = @SLT - @SL
+    WHERE SanPham.MaSP = (SELECT
+        sp.MaSP
+      FROM SanPham sp
+      JOIN INSERTED i
+        ON sp.MaSP = i.MaSP)
 END
 GO
 
 
-DROP TRIGGER dbo.TinhThanhTien
-DROP TRIGGER dbo.TinhTongTien
-DROP TRIGGER insert_GiaBan
-DROP TRIGGER insert_SoLuongTon
-DROP TRIGGER delete_SoLuongTon
-DROP TRIGGER update_SoLuongTon
+CREATE TRIGGER delete_SoLuongTon
+ON dbo.CT_HoaDon
+FOR DELETE
+AS
+BEGIN
+  UPDATE dbo.SanPham
+  SET dbo.SanPham.SoLuongTon = SoLuongTon + (SELECT
+      d.SoLuong
+    FROM Deleted d
+    WHERE d.MaSP = sp.MaSP)
+  FROM dbo.SanPham sp
+  JOIN Deleted i
+    ON i.MaSP = sp.MaSP
+END
+GO
 
+CREATE TRIGGER update_SoLuongTon
+ON dbo.CT_HoaDon
+FOR UPDATE
+AS
+BEGIN
+  DECLARE @SLT INT
+         ,@SL_in INT
+         ,@SL_out INT
+  SET @SLT = (SELECT
+      sp.SoLuongTon
+    FROM SanPham sp
+    JOIN INSERTED i
+      ON sp.MaSP = i.MaSP)
+  SET @SL_in = (SELECT
+      i.SoLuong
+    FROM CT_HoaDon chd
+    JOIN INSERTED i
+      ON chd.MaHD = i.MaHD
+      AND chd.MaSP = i.MaSP)
+  SET @SL_out = (SELECT
+      d.SoLuong
+    FROM CT_HoaDon chd
+    JOIN DELETED d
+      ON chd.MaHD = d.MaHD
+      AND chd.MaSP = d.MaSP)
+  IF (@SLT - @SL_in + @SL_out < 0)
+  BEGIN
+    PRINT ('Số lượng tồn không đủ cung cấp')
+    ROLLBACK TRAN;
+  END
+  ELSE
+    UPDATE SanPham
+    SET SoLuongTon = (@SLT - @SL_in + @SL_out)
+    WHERE MaSP = (SELECT
+        i.MaSP
+      FROM SanPham sp
+      JOIN INSERTED i
+        ON sp.MaSP = i.MaSP)
 
-SELECT	* FROM dbo.HoaDon
-SELECT	* FROM dbo.CT_HoaDon
-SELECT * FROM dbo.SanPham
-SELECT * FROM dbo.KhachHang
+END
+GO
+
+--DROP TRIGGER dbo.TinhThanhTien
+--DROP TRIGGER dbo.TinhTongTien
+--DROP TRIGGER insert_SoLuongTon
+--DROP TRIGGER delete_SoLuongTon
+--DROP TRIGGER update_SoLuongTon
+
+--DISABLE TRIGGER insert_SoLuongTon ON CT_HoaDon
+--GO 
+--enable TRIGGER insert_SoLuongTon ON CT_HoaDon
