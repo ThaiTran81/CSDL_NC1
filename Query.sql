@@ -1,4 +1,4 @@
-USE QLHD
+ÔªøUSE QLHD
 GO 
 --A
   SELECT *
@@ -8,7 +8,7 @@ WHERE YEAR( hd.NgayLap) = 2020
 --B
  SELECT 	*
 FROM	KhachHang KH
-WHERE	KH.TPho like N'H? ChÌ Minh'
+WHERE	KH.TPho like N'H·ªì Ch√≠ Minh'
 
 --C
 SELECT *
@@ -25,35 +25,36 @@ WHERE sp.SoLuongTon < 500
 
 
 --E
-SELECT
-  sp.MaSP
- ,sp.TenSP
- ,SUM(ct.SoLuong)
-FROM CT_HoaDon ct
-JOIN SanPham sp
-  ON ct.MaSP = sp.MaSP
-GROUP BY sp.MaSP
-        ,sp.TenSP
-HAVING SUM(ct.SoLuong) >= ALL (SELECT
-    SUM(ct1.SoLuong)
-  FROM CT_HoaDon ct1
-  GROUP BY ct1.MaSP)
+--SELECT
+--  sp.MaSP
+-- ,sp.TenSP
+-- ,SUM(ct.SoLuong) AS sl
+--FROM CT_HoaDon ct
+--JOIN SanPham sp
+--  ON ct.MaSP = sp.MaSP
+--GROUP BY sp.MaSP
+--        ,sp.TenSP
+--HAVING SUM(ct.SoLuong) >= (SELECT TOP 1
+--    SUM(ct1.SoLuong) AS sl
+--  FROM CT_HoaDon ct1
+--  GROUP BY ct1.MaSP
+--  ORDER BY sl DESC)
+--ORDER BY sl DESC
 
---SELECT SUM(chd.SoLuong) AS sl, chd.MaSP
---FROM CT_HoaDon chd
---GROUP BY chd.MaSP
---HAVING SUM(chd.SoLuong) >= (
---  SELECT TOP 1 SUM(chd.SoLuong) AS sl
---  FROM CT_HoaDon chd
---  GROUP BY chd.MaSP
---  ORDER BY sl desc
---)
---ORDER BY sl desc
+SELECT SUM(chd.SoLuong) AS sl, chd.MaSP
+FROM CT_HoaDon chd
+GROUP BY chd.MaSP
+HAVING SUM(chd.SoLuong) >= (
+  SELECT TOP 1 SUM(chd.SoLuong) AS sl
+  FROM CT_HoaDon chd
+  GROUP BY chd.MaSP
+  ORDER BY sl desc
+)
+ORDER BY sl desc
 
 
   
---  F - tiÃm t‚Ït ca“ sa“n ph‚“m coÏ doanh thu cao nh‚Ït
-
+--  F - t√¨m t·∫•t c·∫£ s·∫£n ph·∫©m c√≥ dianh thu cao nh·∫•t
 SELECT DISTINCT(sp.MaSP), (ban.tongtienban - ban.slban*sp.Gia) AS doanhthu 
 FROM SanPham sp 
 JOIN (
