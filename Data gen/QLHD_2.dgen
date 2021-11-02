@@ -6,7 +6,7 @@
     <ProviderVersion>5.8.127.0</ProviderVersion>
     <GeneratorVersion>6.1.1225.0</GeneratorVersion>
     <Provider>aa8afe9c-7d62-4564-b477-c12e62e0f440</Provider>
-    <ConnectionString>Data Source=DESKTOP-KJAJJUO\SQLEXPRESS;Encrypt=False;Integrated Security=True;User ID=DESKTOP-KJAJJUO\khiem</ConnectionString>
+    <ConnectionString>Data Source=DESKTOP-I28FTUK\SQLEXPRESS;Encrypt=False;Integrated Security=True;User ID=DESKTOP-I28FTUK\ThaiTran</ConnectionString>
     <CategoryId>00000000-0000-0000-0000-000000000000</CategoryId>
     <DatabaseName>QLHD</DatabaseName>
     <AllowNulls>true</AllowNulls>
@@ -72,7 +72,7 @@
             <IsLoop>true</IsLoop>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <FileName>C:\Users\khiem\Documents\GitHub\CSDL_NC1\Data gen\Ho.txt</FileName>
+            <FileName>E:\respo\repos\CSDL_NC1\Data gen\Ho.txt</FileName>
             <TrimLeft>false</TrimLeft>
             <TrimRight>false</TrimRight>
             <CodePage>65001</CodePage>
@@ -96,7 +96,7 @@
             <IsLoop>true</IsLoop>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <FileName>C:\Users\khiem\Documents\GitHub\CSDL_NC1\Data gen\Any gender.txt</FileName>
+            <FileName>E:\respo\repos\CSDL_NC1\Data gen\Any gender.txt</FileName>
             <TrimLeft>false</TrimLeft>
             <TrimRight>false</TrimRight>
             <CodePage>65001</CodePage>
@@ -168,7 +168,7 @@
             <IsLoop>true</IsLoop>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <FileName>C:\Users\khiem\Documents\GitHub\CSDL_NC1\Data gen\street.txt</FileName>
+            <FileName>E:\respo\repos\CSDL_NC1\Data gen\street.txt</FileName>
             <TrimLeft>false</TrimLeft>
             <TrimRight>false</TrimRight>
             <CodePage>65001</CodePage>
@@ -192,10 +192,10 @@
             <IsLoop>true</IsLoop>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <FileName>C:\Users\khiem\Documents\GitHub\CSDL_NC1\Data gen\phuong.txt</FileName>
+            <FileName>E:\respo\repos\CSDL_NC1\Data gen\phuong.txt</FileName>
             <TrimLeft>false</TrimLeft>
             <TrimRight>false</TrimRight>
-            <CodePage>1258</CodePage>
+            <CodePage>1252</CodePage>
           </GeneratorOptions>
           <GeneratorType>SqlTextFileGenerator</GeneratorType>
           <GeneratorName>CA City</GeneratorName>
@@ -216,7 +216,7 @@
             <IsLoop>true</IsLoop>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <FileName>C:\Users\khiem\Documents\GitHub\CSDL_NC1\Data gen\district.txt</FileName>
+            <FileName>E:\respo\repos\CSDL_NC1\Data gen\district.txt</FileName>
             <TrimLeft>false</TrimLeft>
             <TrimRight>false</TrimRight>
             <CodePage>65001</CodePage>
@@ -240,7 +240,7 @@
             <IsLoop>true</IsLoop>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <FileName>C:\Users\khiem\Documents\GitHub\CSDL_NC1\Data gen\city.txt</FileName>
+            <FileName>E:\respo\repos\CSDL_NC1\Data gen\city.txt</FileName>
             <TrimLeft>false</TrimLeft>
             <TrimRight>false</TrimRight>
             <CodePage>65001</CodePage>
@@ -336,7 +336,7 @@
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <Increment xsi:type="xsd:int">1</Increment>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <ValueDistributionMode>Random</ValueDistributionMode>
             <SeedValue>14</SeedValue>
             <MinValue>0</MinValue>
             <MaxValue>100</MaxValue>
@@ -392,7 +392,7 @@
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <Increment xsi:type="xsd:decimal">1</Increment>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <ValueDistributionMode>Random</ValueDistributionMode>
             <SeedValue>14</SeedValue>
             <MinValue>50000</MinValue>
             <MaxValue>500000</MaxValue>
@@ -600,18 +600,22 @@
         <Column Name="GiaBan">
           <Checked>true</Checked>
           <DataType>money</DataType>
-          <GeneratorOptions xsi:type="CheckConstraintGeneratorOptions">
+          <GeneratorOptions xsi:type="MoneyGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <AllowNulls>true</AllowNulls>
-            <NullProportion>10</NullProportion>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <Increment xsi:type="xsd:decimal">1</Increment>
+            <ValueDistributionMode>Random</ValueDistributionMode>
             <SeedValue>1</SeedValue>
-            <IsApplyMeaningfulBounds>true</IsApplyMeaningfulBounds>
+            <MinValue>200</MinValue>
+            <MaxValue>10000</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
           </GeneratorOptions>
-          <GeneratorType>CheckConstraintGenerator</GeneratorType>
-          <GeneratorName>Check Constraint (auto assigned)</GeneratorName>
-          <GeneratorDescription>fill with values within the value range of the check constraint expression</GeneratorDescription>
+          <GeneratorType>MoneyGenerator</GeneratorType>
+          <GeneratorName>money</GeneratorName>
+          <GeneratorDescription>fill with monetary or currency values</GeneratorDescription>
           <HasCheckConstraint>true</HasCheckConstraint>
           <Scale>4</Scale>
           <Length>8</Length>
@@ -620,18 +624,22 @@
         <Column Name="GiaGiam">
           <Checked>true</Checked>
           <DataType>money</DataType>
-          <GeneratorOptions xsi:type="CheckConstraintGeneratorOptions">
+          <GeneratorOptions xsi:type="MoneyGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <AllowNulls>true</AllowNulls>
-            <NullProportion>10</NullProportion>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <Increment xsi:type="xsd:decimal">1</Increment>
+            <ValueDistributionMode>Random</ValueDistributionMode>
             <SeedValue>2</SeedValue>
-            <IsApplyMeaningfulBounds>true</IsApplyMeaningfulBounds>
+            <MinValue>0</MinValue>
+            <MaxValue>200</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue>(0)</DefaultValue>
           </GeneratorOptions>
-          <GeneratorType>CheckConstraintGenerator</GeneratorType>
-          <GeneratorName>Check Constraint (auto assigned)</GeneratorName>
-          <GeneratorDescription>fill with values within the value range of the check constraint expression</GeneratorDescription>
+          <GeneratorType>MoneyGenerator</GeneratorType>
+          <GeneratorName>money</GeneratorName>
+          <GeneratorDescription>fill with monetary or currency values</GeneratorDescription>
           <HasCheckConstraint>true</HasCheckConstraint>
           <Scale>4</Scale>
           <Length>8</Length>
@@ -664,13 +672,12 @@
     </Table>
   </Tables>
   <SynchronizationOptions xsi:type="SqlDataSynchronizationOptions">
-    <SynchronizeType>Editor</SynchronizeType>
-    <SynchronizationFileName>C:\Users\ADMIN\OneDrive\Documents\Devart\dbForge Studio for SQL Server\DataGeneration_20211026-1629.sql</SynchronizationFileName>
+    <SynchronizeType>File</SynchronizeType>
+    <SynchronizationFileName>C:\Users\ThaiTran\Desktop\Generate.sql</SynchronizationFileName>
     <ExecuteCustomScriptTypeBefore>UseEmbeddedScript</ExecuteCustomScriptTypeBefore>
     <ExecuteCustomScriptTypeAfter>UseEmbeddedScript</ExecuteCustomScriptTypeAfter>
     <BackupPathName>C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\Backup</BackupPathName>
     <DisableDmlTriggers>false</DisableDmlTriggers>
-    <DisableDdlTriggers>false</DisableDdlTriggers>
     <CompareColumnStoreTables>true</CompareColumnStoreTables>
   </SynchronizationOptions>
 </DataGenDocument>
