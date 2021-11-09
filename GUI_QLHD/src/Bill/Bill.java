@@ -55,5 +55,9 @@ public class Bill {
     public void setTongTien(double tongTien) {
         this.tongTien = tongTien;
     }
-   
+
+    @Override
+    public String toString() {
+        return maHD + " " + maKh + " " + ngayLap + " " + tongTien;
+    }
 }

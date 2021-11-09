@@ -169,7 +169,7 @@ public class TabAddBill extends JPanel implements ActionListener {
         tout.setEditable(false);
         this.add(tout);
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.sub_btn) {
@@ -216,6 +216,7 @@ public class TabAddBill extends JPanel implements ActionListener {
             this.tout.setText("");
         } else if (e.getSource() == this.genId_btn){
             idBill_txt.setText("");
+            this.tout.setText("");
         }
 
     }
