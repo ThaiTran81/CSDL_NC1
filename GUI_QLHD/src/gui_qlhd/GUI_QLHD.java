@@ -4,6 +4,9 @@
  */
 package gui_qlhd;
 
+import Bill.BillFunc;
+import java.util.Date;
+
 /**
  *
  * @author ThaiTran
@@ -17,13 +20,8 @@ public class GUI_QLHD {
 
         // Schedule a job for the event-dispatching thread:
         // creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-
-            public void run() {
-
-                new Tab().createAndShowGUI();
-
-            }
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            Tab.createAndShowGUI();
         });
     }
 

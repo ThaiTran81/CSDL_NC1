@@ -13,12 +13,11 @@ public class Tab {
 		final JFrame frame = new JFrame("QUẢN LÝ");
 
 		// Display the window.
-                frame.setResizable(false);
-                frame.setLocationRelativeTo(null);
+                frame.setResizable(false);                
 		frame.setSize(900, 550);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+                frame.setLocationRelativeTo(null);
 		// set grid layout for the frame
 		frame.getContentPane().setLayout(new GridLayout(1, 1));
 
