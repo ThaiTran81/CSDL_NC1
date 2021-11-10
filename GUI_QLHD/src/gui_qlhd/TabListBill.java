@@ -8,6 +8,7 @@ import Bill.Bill;
 import Bill.BillFunc;
 import SqlConnection.MessageDialog;
 import SqlConnection.Validator;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,11 +16,15 @@ import java.awt.Font;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -30,6 +35,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -254,6 +260,17 @@ public class TabListBill extends JPanel implements ActionListener {
                                                 .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 389, GroupLayout.PREFERRED_SIZE)
                                                 .addGap(96, 96, 96))))
         );
+        
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        
+        jTable1.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        jTable1.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        jTable1.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        jTable1.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
     }// </editor-fold>                                                           
     // Variables declaration - do not modify                     
 
@@ -261,76 +278,89 @@ public class TabListBill extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == prev_btn) {
-            this.curPage = (curPage - 1) < 0 ? 0 : curPage - 1;
-            this.page_lb.setText("Page " + Integer.toString(curPage));
-
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            model.setRowCount(0);
-
+            this.curPage = (curPage - 1) < 1 ? 1 : curPage - 1;
+            this.page_lb.setText(Integer.toString(curPage));
+            btnFindActionListener();
         } else if (e.getSource() == next_btn) {
             this.curPage = curPage + 1;
-            this.page_lb.setText("Page " + Integer.toString(curPage));
-
-            /// add to table
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            model.setRowCount(0);
+            this.page_lb.setText(Integer.toString(curPage));
+            btnFindActionListener();
 
         } else if (e.getSource() == btnFind) {
-            btnFindActionListener(e);
+            this.curPage=0;
+            btnFindActionListener();
         }
     }
 
-    private void btnFindActionListener(ActionEvent e) {
-        
-        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+    private void btnFindActionListener() {
+
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
-        idBill_txt.setBackground(Color.white);            
+        idBill_txt.setBackground(Color.white);
         userId_txt.setBackground(Color.white);
         date_txt.setBackground(Color.white);
-        
+
         BillFunc bf = new BillFunc();
         List<Bill> lst = new ArrayList<>();
 
         boolean emptyHD = Validator.validateEmpty(idBill_txt), emptyKH = Validator.validateEmpty(userId_txt),
                 emptyNL = Validator.validateEmpty(date_txt);
         if (emptyHD && emptyKH && emptyNL) {
-            idBill_txt.setBackground(Color.red);            
-            userId_txt.setBackground(Color.red);
-            date_txt.setBackground(Color.red);
-
-            MessageDialog.showMessageDialog(this, "One of them cannot be blank!", "Error!");
+            int num = curPage * 23;
+            ResultSet rs;
+            try {
+                rs = SqlConnection.SqlConnection.excuteQuery("select * from hoadon order by ngaylap desc OFFSET " + num + " ROWS FETCH NEXT 23 ROWS ONLY");
+            } catch (SQLServerException ex) {
+                MessageDialog.showMessageDialog(this, "Can't find the invoice you're looking for!", "Notification");
+                return;
+            }
+            /// add to table
+            this.addToTable(rs);
             return;
-        } else if (!emptyHD && !emptyKH && !emptyNL){
+        } else if (!emptyHD && !emptyKH && !emptyNL) {
             lst = bf.listBill(idBill_txt.getText(), userId_txt.getText(), date_txt.getText());
-        } 
-        else if (!emptyHD && !emptyKH && emptyNL) {
+        } else if (!emptyHD && !emptyKH && emptyNL) {
             lst = bf.listBillByHD_KH(idBill_txt.getText(), userId_txt.getText());
         } else if (!emptyHD && emptyKH && !emptyNL) {
             lst = bf.listBillByHD_NL(idBill_txt.getText(), date_txt.getText());
         } else if (emptyHD && !emptyKH && !emptyNL) {
             lst = bf.listBillByKH_NL(userId_txt.getText(), date_txt.getText());
-        } 
-        else if(!emptyHD){
+        } else if (!emptyHD) {
             lst = bf.listBillByID(idBill_txt.getText());
-        }else if(!emptyKH){
+        } else if (!emptyKH) {
             lst = bf.listBillByMaKH(userId_txt.getText());
-        }else{
+        } else {
             lst = bf.listBillByNgayLap(date_txt.getText());
         }
-        
-        
-        
-        if (Objects.isNull(lst) || lst.isEmpty()){
+
+        if (Objects.isNull(lst) || lst.isEmpty()) {
             MessageDialog.showMessageDialog(this, "Can't find the invoice you're looking for!", "Notification");
             return;
         }
-        
-        
-        
+
         for (Bill bill : lst) {
             Object[] content = {bill.getMaHD(), bill.getMaKh(), bill.getNgayLap(), bill.getTongTien()};
             model.addRow(content);
         }
 
+    }
+
+    void addToTable(ResultSet res) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+
+        try {
+            // after query add data to table
+            while (res.next()) {
+                String id = res.getString(1);
+                String customer = res.getString(2);
+                String date = res.getString(3);
+                long total = res.getInt(4);
+                Object[] content = {id, customer, date, total};
+                model.addRow(content);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TabListBill.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

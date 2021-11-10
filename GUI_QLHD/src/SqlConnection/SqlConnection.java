@@ -7,28 +7,65 @@ package SqlConnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import java.sql.Statement;
 /**
  *
  * @author huynhkha
  */
 public class SqlConnection {
-
-    public static Connection getSqlConnection() {
-
-        try {
-         
-            String connectionUrl = "jdbc:sqlserver://localhost;databaseName=QLHD";
-            String username = "sa";
-            String password = "sa";
-            Connection connection = DriverManager.getConnection(connectionUrl, username, password);       
-            return connection;
-        } // Handle any errors that may have occurred.
-        catch (SQLException e) {
-            System.out.println("Failed to connection database: " + e.getMessage());
-        }
-        return null;
+    public static Statement st;
+    public static Connection conn = null;
+    public static SQLAcc sql;
+    
+    public static Connection getSqlConnection() throws SQLServerException {
+        SQLServerDataSource ds = new SQLServerDataSource();
+        ds.setUser(sql.usr);
+        ds.setPassword(sql.pwd);
+        ds.setDatabaseName(sql.db);
+        ds.setServerName(sql.sv);
+        ds.setPortNumber(sql.prt);
+        conn = ds.getConnection();
+        return conn;
     }
+    public static Connection getSqlConnection(String server, String nameDb, String user, String pass, int port) throws SQLServerException{
+        SQLAcc info = new SQLAcc();
+        info.sv =server;
+        info.db = nameDb;
+        info.usr = user;
+        info.pwd = pass;
+        info.prt = port;
+        sql = info;
+        conn = getSqlConnection();
+        return conn;
+    }
+    
+    public static ResultSet excuteQuery(String query) throws SQLServerException {
+        ResultSet res = null;
+        Statement stmt = null;
+        conn = getSqlConnection();
+        try {
+            stmt = conn.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(SqlConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            res = stmt.executeQuery(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(SqlConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
+    }
+};
+
+class SQLAcc{
+    public String sv;
+    public String db;
+    public String usr;
+    public String pwd;
+    public int prt = 0;
 }

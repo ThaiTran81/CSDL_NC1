@@ -21,7 +21,7 @@ public class GUI_QLHD {
         // Schedule a job for the event-dispatching thread:
         // creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(() -> {
-            Tab.createAndShowGUI();
+            new Gui_connect();
         });
     }
 
