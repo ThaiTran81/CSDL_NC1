@@ -22,6 +22,7 @@ public class GUI_QLHD {
         // creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(() -> {
             new Gui_connect();
+//              new Tab();
         });
     }
 

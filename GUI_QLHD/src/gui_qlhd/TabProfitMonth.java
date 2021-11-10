@@ -4,9 +4,19 @@
  */
 package gui_qlhd;
 
+import Bill.Bill;
+import Bill.BillFunc;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,6 +29,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -43,7 +54,7 @@ public class TabProfitMonth extends javax.swing.JPanel implements ActionListener
     private javax.swing.JTable table;
     private javax.swing.JTextArea tout;
     private String months[]
-            = {"Jan", "feb", "Mar", "Apr",
+            = {"Jan", "Feb", "Mar", "Apr",
                 "May", "Jun", "July", "Aug",
                 "Sup", "Oct", "Nov", "Dec"};
     private String years[]
@@ -96,7 +107,8 @@ public class TabProfitMonth extends javax.swing.JPanel implements ActionListener
         get_btn.addActionListener(this);
 
         reset_btn.setText("reset");
-
+        reset_btn.addActionListener(this);
+        
         total_lb.setText("Tổng tiền :");
 
         tout.setColumns(20);
@@ -192,8 +204,29 @@ public class TabProfitMonth extends javax.swing.JPanel implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()== get_btn){
-            //do something when get button is pressed
-            tout.setText("pressed");
+            
+            String thangNam = "01 " + month_txt.getSelectedItem() + " " + year_txt.getSelectedItem();
+            
+            BillFunc bf = new BillFunc();
+            double Tong = bf.doanhThuThang(thangNam);
+            System.out.println(Tong);
+            tout.setText(""+ Tong);
+            
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.setRowCount(0);
+            List<Bill> lst = bf.listBillByThang(thangNam);
+            
+            for (Bill bill : lst) {
+            Object[] content = {bill.getMaHD(), bill.getMaKh(), bill.getNgayLap(), bill.getTongTien()};
+            model.addRow(content);
+            
+        }
+           
+        }else if(e.getSource()==reset_btn){
+            
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.setRowCount(0);
+            tout.setText("");
         }
     }
 

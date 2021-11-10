@@ -42,7 +42,9 @@ public class Gui_connect extends JFrame implements ActionListener{
     public Gui_connect() {
         this.setTitle("Connect to database");
         this.setBounds(300, 90, 900, 600);
+        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
         this.setResizable(false);
  
         c = this.getContentPane();

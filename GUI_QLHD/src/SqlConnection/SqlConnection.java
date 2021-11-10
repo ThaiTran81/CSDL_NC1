@@ -39,6 +39,12 @@ public class SqlConnection {
         info.usr = user;
         info.pwd = pass;
         info.prt = port;
+//            info.sv ="localhost";
+//        info.db = "QLHD";
+//        info.usr = "sa";
+//        info.pwd = "sa";
+//        info.prt = 1433;
+
         sql = info;
         conn = getSqlConnection();
         return conn;
