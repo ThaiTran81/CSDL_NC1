@@ -66,6 +66,13 @@ public class SqlConnection {
         }
         return res;
     }
+    
+    public static void excuteQueryUpdate(String query) throws SQLServerException, SQLException{
+        conn = getSqlConnection();
+        Statement stmt = null;
+        stmt = conn.createStatement();
+        stmt.executeUpdate(query);
+    }
 };
 
 class SQLAcc{

@@ -288,6 +288,7 @@ public class TabListBill extends JPanel implements ActionListener {
 
         } else if (e.getSource() == btnFind) {
             this.curPage=0;
+            this.page_lb.setText("0");
             btnFindActionListener();
         }
     }

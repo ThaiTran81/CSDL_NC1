@@ -24,7 +24,7 @@ public class Tab {
         JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 
         // add tab with title
-        tabbedPane.addTab("Thêm hoá đơn", new TabAddBill());
+        tabbedPane.addTab("Thêm hoá đơn", new AddBill());
 
         // add tab with title and icon
         Icon icon = new ImageIcon("icon.gif");

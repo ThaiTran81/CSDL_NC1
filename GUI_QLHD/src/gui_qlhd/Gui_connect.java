@@ -137,7 +137,14 @@ public class Gui_connect extends JFrame implements ActionListener{
         monitor.setLineWrap(true);
         monitor.setEditable(false);
         c.add(monitor);
-
+        
+        tserver.setText("localhost");
+        tdb.setText("QLHD");
+        tusr.setText("sa");
+        tpwd.setText("1234567890");
+        tport.setText("1433");
+        
+        
         this.setVisible(true);
         // connect server
     }
