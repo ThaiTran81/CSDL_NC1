@@ -22,6 +22,7 @@ public class SqlConnection {
     public static Connection conn = null;
     public static SQLAcc sql;
     
+   
     public static Connection getSqlConnection() throws SQLServerException {
         SQLServerDataSource ds = new SQLServerDataSource();
         ds.setUser(sql.usr);

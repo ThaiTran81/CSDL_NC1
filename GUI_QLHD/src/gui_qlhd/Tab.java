@@ -14,7 +14,7 @@ public class Tab {
 
         // Display the window.
         frame.setResizable(false);
-        frame.setSize(900, 550);
+        frame.setSize(1000, 550);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);

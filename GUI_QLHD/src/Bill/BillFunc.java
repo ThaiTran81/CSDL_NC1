@@ -46,7 +46,7 @@ public class BillFunc {
     }
 
     public Bill findBillById(String maHD) {
-        String sql = "Select * from KhachHang where MaKH= ?";
+        String sql = "Select * from HoaDon where MaHD= ?";
         try (
                  Connection conn = SqlConnection.getSqlConnection();  PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setString(1, maHD);
@@ -269,7 +269,6 @@ public class BillFunc {
                 b.setNgayLap(rs.getDate("NgayLap").toString());
                 b.setTongTien(rs.getDouble("TongTien"));
                 lst.add(b);
-                System.out.println(b.toString());
             }
             return lst;
         } catch (SQLException ex) {

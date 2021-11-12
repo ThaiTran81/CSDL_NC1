@@ -41,7 +41,7 @@ public class Gui_connect extends JFrame implements ActionListener{
     private JTextArea monitor;
     public Gui_connect() {
         this.setTitle("Connect to database");
-        this.setBounds(300, 90, 900, 600);
+        this.setBounds(300, 90, 1000, 550);
         
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -141,7 +141,7 @@ public class Gui_connect extends JFrame implements ActionListener{
         tserver.setText("localhost");
         tdb.setText("QLHD");
         tusr.setText("sa");
-        tpwd.setText("1234567890");
+        tpwd.setText("sa");
         tport.setText("1433");
         
         

@@ -3,13 +3,21 @@ package gui_qlhd;
 
 import Bill.Bill;
 import Bill.BillFunc;
+import Detail.Detail;
+import Detail.DetailFunc;
 import SqlConnection.MessageDialog;
 import SqlConnection.Validator;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -114,7 +122,7 @@ public class AddBill extends javax.swing.JPanel implements ActionListener {
         table.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "Mã", "Tên sản phẩm", "Giá bán", "Giá giảm", "Số lượng mua"
+                    "Mã sản phẩm", "Tên sản phẩm", "Giá bán", "Giá giảm", "Số lượng mua", "Thành Tiền"
                 }
         ) {
             boolean[] canEdit = new boolean[]{
@@ -125,6 +133,7 @@ public class AddBill extends javax.swing.JPanel implements ActionListener {
                 return canEdit[columnIndex];
             }
         });
+
         scrollPane.setViewportView(table);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -136,7 +145,7 @@ public class AddBill extends javax.swing.JPanel implements ActionListener {
         left_lb.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         left_lb.setText("Số lượng tồn");
 
-        buy_btn.setText("Thêm");
+        buy_btn.setText("Thêm sản phẩm");
         buy_btn.addActionListener(this);
 
         del_btn.setIcon(new javax.swing.ImageIcon("Images\\close.png")); // NOI18N
@@ -258,6 +267,7 @@ public class AddBill extends javax.swing.JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if (e.getSource() == this.add_btn) {
 
             StringBuilder sb = new StringBuilder();
@@ -280,13 +290,11 @@ public class AddBill extends javax.swing.JPanel implements ActionListener {
             Bill b = new Bill();
             b.setMaHD(idBill_txt.getText());
             b.setMaKh(idCus_txt.getText());
-            b.setNgayLap(year.getSelectedItem() + "-" + month.getSelectedItem() + "-" + day.getSelectedItem());
+            b.setNgayLap(year.getSelectedItem() + " - " + month.getSelectedItem() + " - " + day.getSelectedItem());
             String id;
             BillFunc bf = new BillFunc();
             if (bf.addBillToDatabase(b)) {
                 id = this.idBill_txt.getText();
-
-                addProductToBill(id);
 
                 String data = "Mã hoá đơn: " + id + "\n";
                 String data1 = "Mã khách hàng: " + this.idCus_txt.getText() + "\n";
@@ -295,11 +303,12 @@ public class AddBill extends javax.swing.JPanel implements ActionListener {
                 MessageDialog.showMessageDialog(this, data + data1 + data2 + "đã được thêm thành công", "Thông báo!");
                 resetField();
             }
+
         } else if (e.getSource() == this.reset_btn) {
             resetField();
         } else if (e.getSource() == this.productName_sl) {
             String item = (String) this.productName_sl.getSelectedItem();
-            String query = "select soluongton from Sanpham where masp='" + item.split("-")[0] + "'";
+            String query = "select soluongton from Sanpham where masp='" + item.split(" - ")[0] + "'";
             if (!item.equals("chọn sản phẩm mua")) {
                 try {
                     ResultSet res;
@@ -314,11 +323,82 @@ public class AddBill extends javax.swing.JPanel implements ActionListener {
                 }
             }
         } else if (e.getSource() == this.buy_btn) {
-            buy();
+            Detail d = new Detail();
+            StringBuilder sb = new StringBuilder();
+            Validator.validateEmpty(idBill_txt, sb, "ID bill cannot be blank!");
+            if (sb.length() > 0) {
+                MessageDialog.showErrorDialog(this, sb.toString(), "Error!");
+                return;
+            }
+            showListSP();
+            if (!Validator.validateExistingBillID(idBill_txt.getText())) {
+                MessageDialog.showErrorDialog(this, "Hóa đơn này không tồn tại! Vui lòng tạo hóa đơn", "Lỗi!");
+            } else {
+
+                d = new Detail();
+                d.setMaHD(idBill_txt.getText());
+
+                String item = (String) this.productName_sl.getSelectedItem();
+                if (!item.equals("chọn sản phẩm mua")) {
+                    var arr = item.split(" - ");
+                    d.setMaSP(arr[0]);
+                    d.setTenSP(arr[1]);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm", "Thông báo", JOptionPane.PLAIN_MESSAGE);
+                    return;
+                }
+
+                if (!this.buyNum_txt.getText().isEmpty() && Integer.parseInt(buyNum_txt.getText()) > 0) {
+                    int num = Integer.parseInt(this.buyNum_txt.getText());
+
+                    if (Objects.isNull(DetailFunc.getDetail(idBill_txt.getText(), d.getMaSP()))) {
+
+                        if (num > Integer.parseInt(this.left_txt.getText())) {
+                            JOptionPane.showMessageDialog(null, "Số lượng mua vượt quá số lượng tồn", "Thông báo",
+                                    JOptionPane.PLAIN_MESSAGE);
+                            return;
+                        }
+
+                        int giaBan = randomNumb(1000, 100);
+                        int giaGiam = randomNumb(giaBan, 0);
+                        d.setGiaBan((double) giaBan);
+                        d.setGiaGiam((double) giaGiam);
+                        d.setSoLuong(num);
+                        left_txt.setText(Integer.toString(Integer.parseInt(left_txt.getText()) - num));
+                        DetailFunc.addDetail(d);
+
+                    } else {
+
+                        int sl = DetailFunc.getDetail(d.getMaHD(), d.getMaSP()).getSoLuong();
+                        if (num > sl + Integer.parseInt(this.left_txt.getText())) {
+                            JOptionPane.showMessageDialog(null, "Số lượng mua vượt quá số lượng tồn", "Thông báo",
+                                    JOptionPane.PLAIN_MESSAGE);
+                            return;
+                        }
+                        d.setSoLuong(num);
+                        left_txt.setText(Integer.toString(Integer.parseInt(this.left_txt.getText()) - num + sl));
+                        DetailFunc.updateDetail(d.getMaHD(), d.getMaSP(), d.getSoLuong());
+
+                    }
+
+                } else {
+                    MessageDialog.showErrorDialog(this, "Nhập lại số lượng mua!", "Lỗi!");
+                    return;
+                }
+
+                showListSP();
+            }
+
         } else if (e.getSource() == del_btn) {
+
             deleteSelectedRowFromJtable();
+
         }
 
+    }
+
+    int randomNumb(int max, int min) {
+        return (int) (Math.random() * ((max - min) + 1) + min);
     }
 
     void resetField() {
@@ -328,10 +408,9 @@ public class AddBill extends javax.swing.JPanel implements ActionListener {
 
     void addProductComboBox() {
         try {
-            ResultSet res;
-            res = SqlConnection.SqlConnection.excuteQuery("select * from Sanpham");
+            ResultSet res = SqlConnection.SqlConnection.excuteQuery("select * from Sanpham");
             while (res.next()) {
-                this.productName_sl.addItem(res.getString(1) + "-" + res.getString(2));
+                this.productName_sl.addItem(res.getString(1) + " - " + res.getString(2));
             }
         } catch (SQLServerException ex) {
             Logger.getLogger(AddBill.class.getName()).log(Level.SEVERE, null, ex);
@@ -340,73 +419,55 @@ public class AddBill extends javax.swing.JPanel implements ActionListener {
         }
     }
 
-    void buy() {
-        String item = (String) this.productName_sl.getSelectedItem();
-        if (!item.equals("chọn sản phẩm mua") && !this.buyNum_txt.getText().isEmpty()) {
-            int num = Integer.parseInt(this.buyNum_txt.getText());
-            String arr[] = item.split("-");
-            if (num <= Integer.parseInt(this.left_txt.getText())) {
-                addToTable(arr[0], arr[1], num);
-            } else {
-                JOptionPane.showMessageDialog(null, "Số lượng mua vượt quá số lượng tồn", "Thông báo", JOptionPane.PLAIN_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm và nhập số lượng mua", "Thông báo", JOptionPane.PLAIN_MESSAGE);
-        }
-    }
-
-    void addToTable(String maSP, String tenSP, int soluong) {
-        String s = "";
-        boolean exists = false;
-        for (int i = 0; i < table.getRowCount(); i++) {
-            s = table.getValueAt(i, 0).toString().trim();
-            if (maSP.equals(s)) {
-                exists = true;
-                break;
-            }
-        }
-
-        if (!exists) {
-            addToTable_ultil(maSP, tenSP, soluong);
-        } else {
-            JOptionPane.showMessageDialog(null, "Sản phẩm đã tồn tại trong giỏ hàng", "Thông báo", JOptionPane.PLAIN_MESSAGE);
-        }
-
-    }
-
-    void addToTable_ultil(String maSP, String tenSP, int soluong) {
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-
-        // after query add data to table
-        Object[] content = {maSP, tenSP, 0, 0, soluong};
-        model.addRow(content);
-    }
-
     void deleteSelectedRowFromJtable() {
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
-        int[] rows = table.getSelectedRows();
-        for (int i = 0; i < rows.length; i++) {
-            model.removeRow(rows[i] - i);
-        }
+        int row = table.getSelectedRow();
+        
+        int num = Integer.parseInt(this.left_txt.getText())+(int)table.getValueAt(row, 4);
+        left_txt.setText(Integer.toString(num));
+        
+        String masp = (String) table.getValueAt(row, 0);
+        DetailFunc.deleteSanPham(idBill_txt.getText(), masp);
+        
+        model.removeRow(row);
+        
     }
 
     void addProductToBill(String id) {
+
         for (int i = 0; i < table.getRowCount(); i++) {
             try {
                 String idP = table.getValueAt(i, 0).toString().trim();
                 String numP = table.getValueAt(i, 4).toString().trim();
                 String sellP = table.getValueAt(i, 2).toString().trim();
                 String saleP = table.getValueAt(i, 3).toString().trim();
-                
-                String query = "INSERT INTO CT_HoaDon (MaHD, MaSP, SoLuong, GiaBan, GiaGiam, ThanhTien)\n" +
-                        "  VALUES ('"+id+"', '"+idP+"', "+numP+", "+sellP+", "+saleP+", 0);";
+
+                String query = "INSERT INTO CT_HoaDon (MaHD, MaSP, SoLuong, GiaBan, GiaGiam)\n"
+                        + "  VALUES ('" + id + "', '" + idP + "', " + numP + ", " + sellP + ", " + saleP + ");";
+
                 SqlConnection.SqlConnection.excuteQueryUpdate(query);
             } catch (SQLServerException ex) {
                 Logger.getLogger(AddBill.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(AddBill.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
     }
+
+    void showListSP() {
+        if (!idBill_txt.getText().equals("")) {
+
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.setRowCount(0);
+            List<Detail> lst = DetailFunc.listDetailByID(idBill_txt.getText());
+
+            for (Detail object : lst) {
+                String tensp = DetailFunc.getNameSP(object.getMaSP());
+                Object[] content = {object.getMaSP(), tensp, object.getGiaBan(), object.getGiaGiam(), object.getSoLuong(), object.getThanhTien()};
+                model.addRow(content);
+            }
+        }
+    }
+
 }
