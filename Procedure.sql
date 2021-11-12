@@ -18,7 +18,7 @@ as
 	end
 go
 
---exec doanhthu_Thang @thang1='1995-01-01', @thang2='1995-02-01'
+exec doanhthu_Thang @thang1='2020-02-01', @thang2='2020-03-01'
 --drop procedure doanhthu_Thang
 --exec listByThang @thang1='1995-02-01', @thang2='1995-03-01'
 --drop procedure listByThang
@@ -33,4 +33,4 @@ as
 				Then Right('0000000000000000000' + mahd, 15)
                 Else mahd End
 	end
-go
+GO

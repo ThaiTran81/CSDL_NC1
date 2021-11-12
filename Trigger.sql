@@ -1,7 +1,9 @@
-﻿USE QLHD
+USE QLHD
 GO
+
+
 -- Trigger Tinh thanh tien
-CREATE TRIGGER TinhThanhTien
+CREATE OR ALTER TRIGGER TinhThanhTien
 ON CT_HoaDon
 FOR INSERT, UPDATE
 AS
@@ -16,7 +18,7 @@ END
 GO
 
 --Trigger tinh tong tien
-CREATE TRIGGER TinhTongTien
+CREATE OR ALTER TRIGGER TinhTongTien
 ON dbo.CT_HoaDon
 FOR INSERT, UPDATE, DELETE
 AS
@@ -32,7 +34,7 @@ END
 GO
 
 -- trigger update soluongton in dbo.SanPham after (insert, update and delete)
-CREATE TRIGGER insert_SoLuongTon
+CREATE OR ALTER TRIGGER insert_SoLuongTon
 ON dbo.CT_HoaDon
 FOR INSERT
 AS
@@ -52,7 +54,7 @@ BEGIN
       AND chd.MaSP = i.MaSP)
   IF (@SLT - @SL < 0)
   BEGIN
-    PRINT ('Số lượng tồn không đủ cung cấp')
+    PRINT ('S�� luo?ng t�`n kh�ng du? cung c�p')
     ROLLBACK TRAN;
   END
   ELSE
@@ -67,7 +69,7 @@ END
 GO
 
 -- Trigger cap nhat So Luong Ton khi CT Hoa don bi xoa
-CREATE TRIGGER delete_SoLuongTon
+CREATE OR ALTER TRIGGER delete_SoLuongTon
 ON dbo.CT_HoaDon
 FOR DELETE
 AS
@@ -83,7 +85,7 @@ BEGIN
 END
 GO
 -- Trigger cap nhat So luong ton 
-CREATE TRIGGER update_SoLuongTon
+CREATE OR ALTER TRIGGER update_SoLuongTon
 ON dbo.CT_HoaDon
 FOR UPDATE
 AS
@@ -110,7 +112,7 @@ BEGIN
       AND chd.MaSP = d.MaSP)
   IF (@SLT - @SL_in + @SL_out < 0)
   BEGIN
-    PRINT ('Số lượng tồn không đủ cung cấp')
+    PRINT ('S�� luo?ng t�`n kh�ng du? cung c�p')
     ROLLBACK TRAN;
   END
   ELSE
@@ -134,3 +136,9 @@ GO
 --DISABLE TRIGGER insert_SoLuongTon ON CT_HoaDon
 --GO 
 --enable TRIGGER insert_SoLuongTon ON CT_HoaDon
+
+
+--SELECT * FROM CT_HoaDon chd
+--SELECT COUNT(*) FROM HoaDon h
+--SELECT COUNT(*) FROM KhachHang kh
+--SELECT COUNT(*) FROM sanpham

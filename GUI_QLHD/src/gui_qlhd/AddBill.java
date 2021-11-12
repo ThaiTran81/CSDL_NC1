@@ -12,8 +12,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,19 +94,19 @@ public class AddBill extends javax.swing.JPanel implements ActionListener {
         idCus_lb.setText("Mã khách hàng");
         jPanel1.add(idCus_lb, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 30));
 
-        day.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
+        day.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
 
         jPanel1.add(day, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, -1, -1));
 
-        month.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
+        month.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"}));
         jPanel1.add(month, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, -1, -1));
 
         year.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021"}));
         jPanel1.add(year, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, -1, -1));
 
-        add_btn.setText("Thêm");
+        add_btn.setText("Thêm hóa đơn");
         add_btn.addActionListener(this);
-        jPanel1.add(add_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 260, -1, -1));
+        jPanel1.add(add_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
 
         reset_btn.setText("Reset");
         reset_btn.addActionListener(this);
@@ -117,7 +119,7 @@ public class AddBill extends javax.swing.JPanel implements ActionListener {
 
         product_lb.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         product_lb.setText("Sản phẩm");
-        product_lb.setPreferredSize(new java.awt.Dimension(100, 100));
+        product_lb.setPreferredSize(new java.awt.Dimension(200, 100));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
@@ -126,7 +128,7 @@ public class AddBill extends javax.swing.JPanel implements ActionListener {
                 }
         ) {
             boolean[] canEdit = new boolean[]{
-                false, false, true, true, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -134,6 +136,18 @@ public class AddBill extends javax.swing.JPanel implements ActionListener {
             }
         });
 
+        table.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int i = table.getSelectedRow();
+                
+                String s = table.getValueAt(i, 0) + " - " + table.getValueAt(i, 1);
+                productName_sl.setSelectedItem(s);
+                buyNum_txt.setText(Integer.toString((int) table.getValueAt(i, 4)));
+            }
+            
+        });
+        
         scrollPane.setViewportView(table);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -147,10 +161,10 @@ public class AddBill extends javax.swing.JPanel implements ActionListener {
 
         buy_btn.setText("Thêm sản phẩm");
         buy_btn.addActionListener(this);
-
-        del_btn.setIcon(new javax.swing.ImageIcon("Images\\close.png")); // NOI18N
+        
+        del_btn.setIcon(new javax.swing.ImageIcon("./Images/close.png")); // NOI18N
         del_btn.addActionListener(this);
-
+        
         buyNum_lb.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         buyNum_lb.setText("Số lượng mua");
 
@@ -265,6 +279,8 @@ public class AddBill extends javax.swing.JPanel implements ActionListener {
     private javax.swing.JTextField buyNum_txt;
     // End of variables declaration                   
 
+    
+    
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -290,7 +306,7 @@ public class AddBill extends javax.swing.JPanel implements ActionListener {
             Bill b = new Bill();
             b.setMaHD(idBill_txt.getText());
             b.setMaKh(idCus_txt.getText());
-            b.setNgayLap(year.getSelectedItem() + " - " + month.getSelectedItem() + " - " + day.getSelectedItem());
+            b.setNgayLap(year.getSelectedItem() + "-" + month.getSelectedItem() + "-" + day.getSelectedItem());
             String id;
             BillFunc bf = new BillFunc();
             if (bf.addBillToDatabase(b)) {
@@ -390,9 +406,19 @@ public class AddBill extends javax.swing.JPanel implements ActionListener {
             }
 
         } else if (e.getSource() == del_btn) {
-
-            deleteSelectedRowFromJtable();
-
+            
+            if(Validator.validateEmpty(idBill_txt)){        
+                MessageDialog.showErrorDialog(this,"Nhập mã hóa đơn!" ,"Lỗi!");
+                return;
+            }
+            
+            String s = (String)productName_sl.getSelectedItem();
+            DetailFunc.deleteSanPham(idBill_txt.getText(), s.split(" - ")[0]);
+            Integer sa = Integer.parseInt(left_txt.getText()) + Integer.parseInt(buyNum_txt.getText());
+            left_txt.setText(sa.toString());
+            buyNum_txt.setText("");
+            showListSP();
+           
         }
 
     }
@@ -419,19 +445,6 @@ public class AddBill extends javax.swing.JPanel implements ActionListener {
         }
     }
 
-    void deleteSelectedRowFromJtable() {
-        DefaultTableModel model = (DefaultTableModel) this.table.getModel();
-        int row = table.getSelectedRow();
-        
-        int num = Integer.parseInt(this.left_txt.getText())+(int)table.getValueAt(row, 4);
-        left_txt.setText(Integer.toString(num));
-        
-        String masp = (String) table.getValueAt(row, 0);
-        DetailFunc.deleteSanPham(idBill_txt.getText(), masp);
-        
-        model.removeRow(row);
-        
-    }
 
     void addProductToBill(String id) {
 

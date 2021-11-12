@@ -208,9 +208,9 @@ public class TabProfitMonth extends javax.swing.JPanel implements ActionListener
             String thangNam = "01 " + month_txt.getSelectedItem() + " " + year_txt.getSelectedItem();
             
             BillFunc bf = new BillFunc();
-            double Tong = bf.doanhThuThang(thangNam);
+            Long Tong = bf.doanhThuThang(thangNam);
             System.out.println(Tong);
-            tout.setText(""+ Tong);
+            tout.setText(Tong.toString());
             
             DefaultTableModel model = (DefaultTableModel) table.getModel();
             model.setRowCount(0);

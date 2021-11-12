@@ -53,7 +53,7 @@ public class Gui_connect extends JFrame implements ActionListener{
         title = new JLabel("Connect to database");
         title.setFont(new Font("Arial", Font.PLAIN, 30));
         title.setSize(300, 30);
-        title.setLocation(300, 30);
+        title.setLocation(350, 30);
         c.add(title);
  
         server = new JLabel("server");
@@ -76,43 +76,43 @@ public class Gui_connect extends JFrame implements ActionListener{
  
         tdb = new JTextField();
         tdb.setFont(new Font("Arial", Font.PLAIN, 15));
-        tdb.setSize(150, 30);
+        tdb.setSize(250, 30);
         tdb.setLocation(200, 150);
         c.add(tdb);
         
         usr = new JLabel("username");
         usr.setFont(new Font("Arial", Font.PLAIN, 20));
-        usr.setSize(100, 20);
+        usr.setSize(250, 30);
         usr.setLocation(100, 200);
         c.add(usr);
  
         tusr = new JTextField();
         tusr.setFont(new Font("Arial", Font.PLAIN, 15));
-        tusr.setSize(150, 30);
+        tusr.setSize(250, 30);
         tusr.setLocation(200, 200);
         c.add(tusr);
         
         pwd = new JLabel("password");
         pwd.setFont(new Font("Arial", Font.PLAIN, 20));
-        pwd.setSize(100, 20);
+        pwd.setSize(250, 30);
         pwd.setLocation(100, 250);
         c.add(pwd);
  
         tpwd = new JTextField();
         tpwd.setFont(new Font("Arial", Font.PLAIN, 15));
-        tpwd.setSize(150, 30);
+        tpwd.setSize(250, 30);
         tpwd.setLocation(200, 250);
         c.add(tpwd);
  
         port = new JLabel("Port");
         port.setFont(new Font("Arial", Font.PLAIN, 20));
-        port.setSize(100, 20);
+        port.setSize(250, 30);
         port.setLocation(100, 300);
         c.add(port);
  
         tport = new JTextField();
         tport.setFont(new Font("Arial", Font.PLAIN, 15));
-        tport.setSize(150, 30);
+        tport.setSize(250, 30);
         tport.setLocation(200, 300);
         c.add(tport);
  
@@ -132,17 +132,17 @@ public class Gui_connect extends JFrame implements ActionListener{
  
         monitor = new JTextArea();
         monitor.setFont(new Font("Arial", Font.PLAIN, 15));
-        monitor.setSize(300, 400);
+        monitor.setSize(300, 250);
         monitor.setLocation(500, 100);
         monitor.setLineWrap(true);
         monitor.setEditable(false);
         c.add(monitor);
         
-        tserver.setText("localhost");
-        tdb.setText("QLHD");
-        tusr.setText("sa");
-        tpwd.setText("sa");
-        tport.setText("1433");
+        tserver.setText("");
+        tdb.setText("");
+        tusr.setText("");
+        tpwd.setText("");
+        tport.setText("");
         
         
         this.setVisible(true);

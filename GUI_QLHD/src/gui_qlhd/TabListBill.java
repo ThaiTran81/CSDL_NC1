@@ -180,11 +180,11 @@ public class TabListBill extends JPanel implements ActionListener {
         jTable1.setFocusable(false);
         jScrollPane1.setViewportView(jTable1);
 
-        prev_btn.setIcon(new ImageIcon("images/left-arrow.png"));
+        prev_btn.setIcon(new ImageIcon("./Images/left-arrow.png"));
         prev_btn.setFont(new Font("Arial", Font.PLAIN, 15));
         prev_btn.addActionListener(this);
 
-        next_btn.setIcon(new ImageIcon("Images/right-arrow.png"));
+        next_btn.setIcon(new ImageIcon("./Images/right-arrow.png"));
         next_btn.setFont(new Font("Arial", Font.PLAIN, 15));
         next_btn.addActionListener(this);
 

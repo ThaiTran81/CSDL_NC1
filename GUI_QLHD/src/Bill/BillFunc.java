@@ -168,7 +168,7 @@ public class BillFunc {
                 b.setNgayLap(rs.getDate("NgayLap").toString());
                 b.setTongTien(rs.getDouble("TongTien"));
                 lst.add(b);
-                System.out.println(b.toString());
+      
             }
             return lst;
         } catch (SQLException ex) {
@@ -279,7 +279,7 @@ public class BillFunc {
         return null;
     }
 
-    public double doanhThuThang(String thangNam) {
+    public long doanhThuThang(String thangNam) {
         String sql = "exec doanhthu_Thang @thang1 = ?, @thang2 = ?";
         try (
                  Connection conn = SqlConnection.getSqlConnection();  
@@ -296,7 +296,7 @@ public class BillFunc {
 
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                return rs.getDouble("Doanhthu");
+                return rs.getLong("Doanhthu");
             }
 
         } catch (SQLException ex) {

@@ -6,7 +6,7 @@
     <ProviderVersion>5.8.127.0</ProviderVersion>
     <GeneratorVersion>6.1.1225.0</GeneratorVersion>
     <Provider>aa8afe9c-7d62-4564-b477-c12e62e0f440</Provider>
-    <ConnectionString>Data Source=TRHUTRONG;Encrypt=False;Integrated Security=True;User ID=TRHUTRONG\ADMIN</ConnectionString>
+    <ConnectionString>Data Source=HUYNHKHA\SQLEXPRESS;Encrypt=False;Integrated Security=False;User ID=sa</ConnectionString>
     <CategoryId>00000000-0000-0000-0000-000000000000</CategoryId>
     <DatabaseName>QLHD</DatabaseName>
     <AllowNulls>true</AllowNulls>
@@ -47,7 +47,7 @@
             <EmptyStringProportion>10</EmptyStringProportion>
             <AllowNulls>false</AllowNulls>
             <NullProportion>0</NullProportion>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <ValueDistributionMode>Random</ValueDistributionMode>
             <SeedValue>5</SeedValue>
             <Unique>true</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
@@ -72,7 +72,7 @@
             <IsLoop>true</IsLoop>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <FileName>C:\Users\ADMIN\OneDrive\Documents\GitHub\CSDL_NC1\Data gen\Ho.txt</FileName>
+            <FileName>C:\Users\huynh\OneDrive\Documents\GitHub\CSDL_NC1\Data gen\Ho.txt</FileName>
             <TrimLeft>false</TrimLeft>
             <TrimRight>false</TrimRight>
             <CodePage>65001</CodePage>
@@ -96,7 +96,7 @@
             <IsLoop>true</IsLoop>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <FileName>C:\Users\ADMIN\OneDrive\Documents\GitHub\CSDL_NC1\Data gen\Any gender.txt</FileName>
+            <FileName>C:\Users\huynh\OneDrive\Documents\GitHub\CSDL_NC1\Data gen\Any gender.txt</FileName>
             <TrimLeft>false</TrimLeft>
             <TrimRight>false</TrimRight>
             <CodePage>65001</CodePage>
@@ -168,7 +168,7 @@
             <IsLoop>true</IsLoop>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <FileName>C:\Users\ADMIN\OneDrive\Documents\GitHub\CSDL_NC1\Data gen\street.txt</FileName>
+            <FileName>C:\Users\huynh\OneDrive\Documents\GitHub\CSDL_NC1\Data gen\street.txt</FileName>
             <TrimLeft>false</TrimLeft>
             <TrimRight>false</TrimRight>
             <CodePage>65001</CodePage>
@@ -192,7 +192,7 @@
             <IsLoop>true</IsLoop>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <FileName>C:\Users\ADMIN\OneDrive\Documents\GitHub\CSDL_NC1\Data gen\phuong.txt</FileName>
+            <FileName>C:\Users\huynh\OneDrive\Documents\GitHub\CSDL_NC1\Data gen\phuong.txt</FileName>
             <TrimLeft>false</TrimLeft>
             <TrimRight>false</TrimRight>
             <CodePage>1252</CodePage>
@@ -216,7 +216,7 @@
             <IsLoop>true</IsLoop>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <FileName>C:\Users\ADMIN\OneDrive\Documents\GitHub\CSDL_NC1\Data gen\district.txt</FileName>
+            <FileName>C:\Users\huynh\OneDrive\Documents\GitHub\CSDL_NC1\Data gen\district.txt</FileName>
             <TrimLeft>false</TrimLeft>
             <TrimRight>false</TrimRight>
             <CodePage>65001</CodePage>
@@ -240,7 +240,7 @@
             <IsLoop>true</IsLoop>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <FileName>C:\Users\ADMIN\OneDrive\Documents\GitHub\CSDL_NC1\Data gen\city.txt</FileName>
+            <FileName>C:\Users\huynh\OneDrive\Documents\GitHub\CSDL_NC1\Data gen\city.txt</FileName>
             <TrimLeft>false</TrimLeft>
             <TrimRight>false</TrimRight>
             <CodePage>65001</CodePage>
@@ -295,7 +295,7 @@
             <EmptyStringProportion>10</EmptyStringProportion>
             <AllowNulls>false</AllowNulls>
             <NullProportion>0</NullProportion>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <ValueDistributionMode>Random</ValueDistributionMode>
             <SeedValue>14</SeedValue>
             <Unique>true</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
@@ -315,7 +315,7 @@
             <EmptyStringProportion>10</EmptyStringProportion>
             <AllowNulls>false</AllowNulls>
             <NullProportion>1</NullProportion>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <ValueDistributionMode>Random</ValueDistributionMode>
             <SeedValue>15</SeedValue>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
@@ -394,8 +394,8 @@
             <Increment xsi:type="xsd:decimal">1</Increment>
             <ValueDistributionMode>Random</ValueDistributionMode>
             <SeedValue>14</SeedValue>
-            <MinValue>1000</MinValue>
-            <MaxValue>5000</MaxValue>
+            <MinValue>200</MinValue>
+            <MaxValue>3000</MaxValue>
             <UseDefault>false</UseDefault>
             <DefaultValue />
           </GeneratorOptions>
@@ -430,8 +430,8 @@
             <EmptyStringProportion>10</EmptyStringProportion>
             <AllowNulls>false</AllowNulls>
             <NullProportion>0</NullProportion>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>4</SeedValue>
+            <ValueDistributionMode>Random</ValueDistributionMode>
+            <SeedValue>6</SeedValue>
             <Unique>true</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <Expression>(${counter([0-9]{7})})</Expression>
@@ -450,7 +450,7 @@
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <AllowNulls>false</AllowNulls>
             <NullProportion>10</NullProportion>
-            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <ValueDistributionMode>Random</ValueDistributionMode>
             <SeedValue>4</SeedValue>
             <RepeatValues>false</RepeatValues>
             <FromTimes>1</FromTimes>
@@ -539,7 +539,7 @@
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <AllowNulls>false</AllowNulls>
             <NullProportion>0</NullProportion>
-            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <ValueDistributionMode>Random</ValueDistributionMode>
             <SeedValue>1</SeedValue>
             <RepeatValues>false</RepeatValues>
             <FromTimes>1</FromTimes>
@@ -561,7 +561,7 @@
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <AllowNulls>false</AllowNulls>
             <NullProportion>0</NullProportion>
-            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <ValueDistributionMode>Random</ValueDistributionMode>
             <SeedValue>2</SeedValue>
             <RepeatValues>false</RepeatValues>
             <FromTimes>1</FromTimes>
@@ -608,8 +608,8 @@
             <Increment xsi:type="xsd:decimal">1</Increment>
             <ValueDistributionMode>Random</ValueDistributionMode>
             <SeedValue>1</SeedValue>
-            <MinValue>1000</MinValue>
-            <MaxValue>5000</MaxValue>
+            <MinValue>200</MinValue>
+            <MaxValue>2000</MaxValue>
             <UseDefault>false</UseDefault>
             <DefaultValue />
           </GeneratorOptions>
@@ -633,7 +633,7 @@
             <ValueDistributionMode>Random</ValueDistributionMode>
             <SeedValue>2</SeedValue>
             <MinValue>0</MinValue>
-            <MaxValue>999</MaxValue>
+            <MaxValue>200</MaxValue>
             <UseDefault>false</UseDefault>
             <DefaultValue>(0)</DefaultValue>
           </GeneratorOptions>
@@ -672,7 +672,7 @@
     </Table>
   </Tables>
   <SynchronizationOptions xsi:type="SqlDataSynchronizationOptions">
-    <SynchronizeType>File</SynchronizeType>
+    <SynchronizeType>Editor</SynchronizeType>
     <OpenScriptInEditor>true</OpenScriptInEditor>
     <SynchronizationFileName>D:\and dob\QLHD_Gen.sql</SynchronizationFileName>
     <ExecuteCustomScriptTypeBefore>UseEmbeddedScript</ExecuteCustomScriptTypeBefore>

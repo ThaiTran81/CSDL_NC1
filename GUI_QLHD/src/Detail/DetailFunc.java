@@ -119,7 +119,8 @@ public class DetailFunc {
         String sql = "Delete from CT_HoaDon where mahd = ? and masp = ?";
         try (
                  Connection conn = SqlConnection.getSqlConnection();  
-                PreparedStatement pstmt = conn.prepareStatement(sql);) {
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                ) {
             
             pstmt.setString(1, mahd);
             pstmt.setString(2, masp);
