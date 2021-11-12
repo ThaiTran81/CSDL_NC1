@@ -1,6 +1,6 @@
 ﻿USE QLHD
 GO
-
+-- Trigger Tinh thanh tien
 CREATE TRIGGER TinhThanhTien
 ON CT_HoaDon
 FOR INSERT, UPDATE
@@ -15,16 +15,16 @@ BEGIN
 END
 GO
 
+--Trigger tinh tong tien
 CREATE TRIGGER TinhTongTien
 ON dbo.CT_HoaDon
 FOR INSERT, UPDATE, DELETE
 AS
 BEGIN
   UPDATE dbo.HoaDon
-  SET dbo.HoaDon.TongTien = (SELECT
-      SUM(ThanhTien)
-    FROM dbo.CT_HoaDon
-    WHERE dbo.CT_HoaDon.MaHD = i.MaHD)
+  SET dbo.HoaDon.TongTien = (SELECT SUM(ThanhTien)
+              FROM dbo.CT_HoaDon
+              WHERE dbo.CT_HoaDon.MaHD = i.MaHD)
   FROM Inserted i
   JOIN dbo.HoaDon
     ON HoaDon.MaHD = i.MaHD
@@ -66,7 +66,7 @@ BEGIN
 END
 GO
 
-
+-- Trigger cap nhat So Luong Ton khi CT Hoa don bi xoa
 CREATE TRIGGER delete_SoLuongTon
 ON dbo.CT_HoaDon
 FOR DELETE
@@ -82,7 +82,7 @@ BEGIN
     ON i.MaSP = sp.MaSP
 END
 GO
-
+-- Trigger cap nhat So luong ton 
 CREATE TRIGGER update_SoLuongTon
 ON dbo.CT_HoaDon
 FOR UPDATE

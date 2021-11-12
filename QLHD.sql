@@ -63,3 +63,32 @@ alter table CT_HoaDon add
 CONSTRAINT FK_CTHoaDon_HoaDon FOREIGN KEY (MaHD) REFERENCES HoaDon(MaHD),
 CONSTRAINT FK_CTHoaDon_SanPham FOREIGN KEY (MaSP) REFERENCES SanPham(MaSP),
 CONSTRAINT CK_GiaBan_GiaGiam CHECK (GiaGiam <= GiaBan AND GiaGiam >= 0)
+
+
+-- Ham tinh doanh thu thang cho giao dien
+create procedure doanhthu_Thang @thang1 date, @thang2 date
+as
+	begin
+		select sum(s.tongtien) as Doanhthu
+		from(select sum(TongTien) as tongtien from HoaDon
+		where DATEDIFF(day, NgayLap, @thang1) <= 0 and DATEDIFF(day,NgayLap, @thang2) > 0
+		group by MaKH) as s
+	end
+go
+
+exec doanhthu_Thang @thang1='1995-01-01', @thang2='1995-02-01'
+drop procedure doanhthu_Thang
+exec listByThang @thang1='1995-02-01', @thang2='1995-03-01'
+drop procedure listByThang
+
+create procedure listByThang @thang1 date, @thang2 date
+as
+	begin
+		select *
+		from HoaDon
+		where DATEDIFF(day, NgayLap, @thang1) <= 0 and DATEDIFF(day,NgayLap, @thang2) > 0
+		Order By Case When IsNumeric(mahd) = 1
+				Then Right('0000000000000000000' + mahd, 15)
+                Else mahd End
+	end
+go

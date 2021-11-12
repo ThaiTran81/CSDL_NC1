@@ -1,6 +1,6 @@
 ﻿USE QLHD
 GO 
---A
+--A 
   SELECT *
 FROM HoaDon hd  
 WHERE YEAR( hd.NgayLap) = 2020 
@@ -25,21 +25,6 @@ WHERE sp.SoLuongTon < 500
 
 
 --E
---SELECT
---  sp.MaSP
--- ,sp.TenSP
--- ,SUM(ct.SoLuong) AS sl
---FROM CT_HoaDon ct
---JOIN SanPham sp
---  ON ct.MaSP = sp.MaSP
---GROUP BY sp.MaSP
---        ,sp.TenSP
---HAVING SUM(ct.SoLuong) >= (SELECT TOP 1
---    SUM(ct1.SoLuong) AS sl
---  FROM CT_HoaDon ct1
---  GROUP BY ct1.MaSP
---  ORDER BY sl DESC)
---ORDER BY sl DESC
 
 SELECT SUM(chd.SoLuong) AS sl, chd.MaSP
 FROM CT_HoaDon chd
