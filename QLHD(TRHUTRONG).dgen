@@ -1,0 +1,685 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Devart (www.devart.com), Data-Generator document file -->
+<!-- Modifying this generated file will probably render it invalid -->
+<DataGenDocument xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="5.0">
+  <Settings>
+    <ProviderVersion>5.8.127.0</ProviderVersion>
+    <GeneratorVersion>6.1.1225.0</GeneratorVersion>
+    <Provider>aa8afe9c-7d62-4564-b477-c12e62e0f440</Provider>
+    <ConnectionString>Data Source=TRHUTRONG;Encrypt=False;Integrated Security=True;User ID=TRHUTRONG\ADMIN</ConnectionString>
+    <CategoryId>00000000-0000-0000-0000-000000000000</CategoryId>
+    <DatabaseName>QLHD</DatabaseName>
+    <AllowNulls>true</AllowNulls>
+    <IncludeNullsPercent>10</IncludeNullsPercent>
+    <AllowEmptyString>false</AllowEmptyString>
+    <IncludeEmptyStringPercent>10</IncludeEmptyStringPercent>
+    <PopulationType>RowsCount</PopulationType>
+    <RowsToGenerate>1000</RowsToGenerate>
+    <ProportionOfExistingData>10</ProportionOfExistingData>
+    <TimeTicksToPopulate>100000000</TimeTicksToPopulate>
+    <GenerateUniqueValues>false</GenerateUniqueValues>
+    <TruncateTables>true</TruncateTables>
+    <DistributionMode>Seed</DistributionMode>
+    <Seed>1</Seed>
+    <LastSeedValue>0</LastSeedValue>
+    <Language>US</Language>
+  </Settings>
+  <Tables>
+    <Table Name="dbo.KhachHang">
+      <Checked>true</Checked>
+      <Settings>
+        <Truncate>true</Truncate>
+        <RowsToGenerate>0</RowsToGenerate>
+        <PopulationDetails>
+          <PopulationType>RowsCount</PopulationType>
+          <RowsCount>100000</RowsCount>
+          <LookupProportion>30</LookupProportion>
+          <ProportionOfExistingData>10</ProportionOfExistingData>
+          <TimeTicksToPopulate>100000000</TimeTicksToPopulate>
+        </PopulationDetails>
+      </Settings>
+      <Columns>
+        <Column Name="MaKH">
+          <Checked>true</Checked>
+          <DataType>varchar</DataType>
+          <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
+            <AllowEmptyStrings>false</AllowEmptyStrings>
+            <EmptyStringProportion>10</EmptyStringProportion>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>0</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>5</SeedValue>
+            <Unique>true</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Expression>ID(${counter([0-9]{6})})</Expression>
+          </GeneratorOptions>
+          <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
+          <GeneratorName>ID (composite sequential)</GeneratorName>
+          <GeneratorDescription>ID000, ID001, ID002, ..., ID997, ID998, ID999</GeneratorDescription>
+          <GeneratorCategory>Business</GeneratorCategory>
+          <Length>15</Length>
+        </Column>
+        <Column Name="Ho">
+          <Checked>true</Checked>
+          <DataType>nvarchar</DataType>
+          <GeneratorOptions xsi:type="TextFileGeneratorOptions">
+            <AllowEmptyStrings>false</AllowEmptyStrings>
+            <EmptyStringProportion>10</EmptyStringProportion>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>6</SeedValue>
+            <IsLoop>true</IsLoop>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <FileName>C:\Users\ADMIN\OneDrive\Documents\GitHub\CSDL_NC1\Data gen\Ho.txt</FileName>
+            <TrimLeft>false</TrimLeft>
+            <TrimRight>false</TrimRight>
+            <CodePage>65001</CodePage>
+          </GeneratorOptions>
+          <GeneratorType>SqlTextFileGenerator</GeneratorType>
+          <GeneratorName>DE Last Name</GeneratorName>
+          <GeneratorDescription>Kohlberg, Blücher, Rennenkampf, Münch, Heinemann, Schwarz, Küchenmeister, ...</GeneratorDescription>
+          <GeneratorCategory>Personal</GeneratorCategory>
+          <Length>15</Length>
+        </Column>
+        <Column Name="Ten">
+          <Checked>true</Checked>
+          <DataType>nvarchar</DataType>
+          <GeneratorOptions xsi:type="TextFileGeneratorOptions">
+            <AllowEmptyStrings>false</AllowEmptyStrings>
+            <EmptyStringProportion>10</EmptyStringProportion>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>6</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>8</SeedValue>
+            <IsLoop>true</IsLoop>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <FileName>C:\Users\ADMIN\OneDrive\Documents\GitHub\CSDL_NC1\Data gen\Any gender.txt</FileName>
+            <TrimLeft>false</TrimLeft>
+            <TrimRight>false</TrimRight>
+            <CodePage>65001</CodePage>
+          </GeneratorOptions>
+          <GeneratorType>SqlTextFileGenerator</GeneratorType>
+          <GeneratorName>First Name (male)</GeneratorName>
+          <GeneratorDescription>Zane, Ernest, Allan, Denis, Hans, ...</GeneratorDescription>
+          <GeneratorCategory>Personal</GeneratorCategory>
+          <Length>15</Length>
+        </Column>
+        <Column Name="NgSinh">
+          <Checked>true</Checked>
+          <DataType>date</DataType>
+          <GeneratorOptions xsi:type="DateGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>3</NullProportion>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <UseDefault>false</UseDefault>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>5</SeedValue>
+            <SequentialValueTicks>864000000000</SequentialValueTicks>
+            <OffsetFromColumnMaxTimeTicks>10000000</OffsetFromColumnMaxTimeTicks>
+            <OffsetFromColumnMinTimeTicks>10000000</OffsetFromColumnMinTimeTicks>
+            <DateTimeRange>MinMaxDate</DateTimeRange>
+            <UseOffsetDetails>false</UseOffsetDetails>
+            <OffsetFromColumnMinDays>0</OffsetFromColumnMinDays>
+            <OffsetFromColumnMaxDays>7</OffsetFromColumnMaxDays>
+            <MinDate>1970-01-01T00:00:00</MinDate>
+            <MaxDate>2010-10-20T00:00:00+07:00</MaxDate>
+            <IsRandomizeDate>true</IsRandomizeDate>
+          </GeneratorOptions>
+          <GeneratorType>SqlDateGenerator</GeneratorType>
+          <GeneratorName>date</GeneratorName>
+          <GeneratorDescription>fill with date values</GeneratorDescription>
+          <Length>3</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="SoNha">
+          <Checked>true</Checked>
+          <DataType>varchar</DataType>
+          <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
+            <AllowEmptyStrings>false</AllowEmptyStrings>
+            <EmptyStringProportion>10</EmptyStringProportion>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>8</SeedValue>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Expression>\d{5}</Expression>
+          </GeneratorOptions>
+          <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
+          <GeneratorName>ID (random)</GeneratorName>
+          <GeneratorDescription>54470, 16912, 43814, 06728, 36017, 82433, 95664, ...</GeneratorDescription>
+          <GeneratorCategory>Business</GeneratorCategory>
+          <Length>10</Length>
+        </Column>
+        <Column Name="Duong">
+          <Checked>true</Checked>
+          <DataType>nvarchar</DataType>
+          <GeneratorOptions xsi:type="TextFileGeneratorOptions">
+            <AllowEmptyStrings>false</AllowEmptyStrings>
+            <EmptyStringProportion>10</EmptyStringProportion>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>9</SeedValue>
+            <IsLoop>true</IsLoop>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <FileName>C:\Users\ADMIN\OneDrive\Documents\GitHub\CSDL_NC1\Data gen\street.txt</FileName>
+            <TrimLeft>false</TrimLeft>
+            <TrimRight>false</TrimRight>
+            <CodePage>65001</CodePage>
+          </GeneratorOptions>
+          <GeneratorType>SqlTextFileGenerator</GeneratorType>
+          <GeneratorName>UK City</GeneratorName>
+          <GeneratorDescription>Liverpool, West Bromwich, Oxford, Huddersfield, ...</GeneratorDescription>
+          <GeneratorCategory>Location</GeneratorCategory>
+          <Length>30</Length>
+        </Column>
+        <Column Name="Phuong">
+          <Checked>true</Checked>
+          <DataType>nvarchar</DataType>
+          <GeneratorOptions xsi:type="TextFileGeneratorOptions">
+            <AllowEmptyStrings>false</AllowEmptyStrings>
+            <EmptyStringProportion>10</EmptyStringProportion>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>10</SeedValue>
+            <IsLoop>true</IsLoop>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <FileName>C:\Users\ADMIN\OneDrive\Documents\GitHub\CSDL_NC1\Data gen\phuong.txt</FileName>
+            <TrimLeft>false</TrimLeft>
+            <TrimRight>false</TrimRight>
+            <CodePage>1252</CodePage>
+          </GeneratorOptions>
+          <GeneratorType>SqlTextFileGenerator</GeneratorType>
+          <GeneratorName>CA City</GeneratorName>
+          <GeneratorDescription>Toronto, Qualicum Beach, Gander, Alexandria, ...</GeneratorDescription>
+          <GeneratorCategory>Location</GeneratorCategory>
+          <Length>30</Length>
+        </Column>
+        <Column Name="Quan">
+          <Checked>true</Checked>
+          <DataType>nvarchar</DataType>
+          <GeneratorOptions xsi:type="TextFileGeneratorOptions">
+            <AllowEmptyStrings>false</AllowEmptyStrings>
+            <EmptyStringProportion>10</EmptyStringProportion>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <SeedValue>11</SeedValue>
+            <IsLoop>true</IsLoop>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <FileName>C:\Users\ADMIN\OneDrive\Documents\GitHub\CSDL_NC1\Data gen\district.txt</FileName>
+            <TrimLeft>false</TrimLeft>
+            <TrimRight>false</TrimRight>
+            <CodePage>65001</CodePage>
+          </GeneratorOptions>
+          <GeneratorType>SqlTextFileGenerator</GeneratorType>
+          <GeneratorName>AU City</GeneratorName>
+          <GeneratorDescription>Sydney, Alice Springs, Hamilton, Victoria Point, ...</GeneratorDescription>
+          <GeneratorCategory>Location</GeneratorCategory>
+          <Length>30</Length>
+        </Column>
+        <Column Name="TPho">
+          <Checked>true</Checked>
+          <DataType>nvarchar</DataType>
+          <GeneratorOptions xsi:type="TextFileGeneratorOptions">
+            <AllowEmptyStrings>false</AllowEmptyStrings>
+            <EmptyStringProportion>10</EmptyStringProportion>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <SeedValue>12</SeedValue>
+            <IsLoop>true</IsLoop>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <FileName>C:\Users\ADMIN\OneDrive\Documents\GitHub\CSDL_NC1\Data gen\city.txt</FileName>
+            <TrimLeft>false</TrimLeft>
+            <TrimRight>false</TrimRight>
+            <CodePage>65001</CodePage>
+          </GeneratorOptions>
+          <GeneratorType>SqlTextFileGenerator</GeneratorType>
+          <GeneratorName>AU City</GeneratorName>
+          <GeneratorDescription>Sydney, Alice Springs, Hamilton, Victoria Point, ...</GeneratorDescription>
+          <GeneratorCategory>Location</GeneratorCategory>
+          <Length>30</Length>
+        </Column>
+        <Column Name="DienThoai">
+          <Checked>true</Checked>
+          <DataType>varchar</DataType>
+          <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
+            <AllowEmptyStrings>false</AllowEmptyStrings>
+            <EmptyStringProportion>10</EmptyStringProportion>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>13</SeedValue>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Expression>07[45789]\d{8}|07624\d{6}</Expression>
+          </GeneratorOptions>
+          <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
+          <GeneratorName>UK Phone Number (mobile)</GeneratorName>
+          <GeneratorDescription>07770211173, 07803931184, 07961715468, ...</GeneratorDescription>
+          <GeneratorCategory>Personal</GeneratorCategory>
+          <Length>15</Length>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.SanPham">
+      <Checked>true</Checked>
+      <Settings>
+        <Truncate>true</Truncate>
+        <RowsToGenerate>0</RowsToGenerate>
+        <PopulationDetails>
+          <PopulationType>RowsCount</PopulationType>
+          <RowsCount>10000</RowsCount>
+          <LookupProportion>30</LookupProportion>
+          <ProportionOfExistingData>10</ProportionOfExistingData>
+          <TimeTicksToPopulate>100000000</TimeTicksToPopulate>
+        </PopulationDetails>
+      </Settings>
+      <Columns>
+        <Column Name="MaSP">
+          <Checked>true</Checked>
+          <DataType>varchar</DataType>
+          <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
+            <AllowEmptyStrings>false</AllowEmptyStrings>
+            <EmptyStringProportion>10</EmptyStringProportion>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>0</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>14</SeedValue>
+            <Unique>true</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Expression>(${counter([0-9]{5})})</Expression>
+          </GeneratorOptions>
+          <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
+          <GeneratorName>ID (numeric sequential)</GeneratorName>
+          <GeneratorDescription>00000, 00001, 00002, ..., 99997, 99998, 99999</GeneratorDescription>
+          <GeneratorCategory>Business</GeneratorCategory>
+          <Length>15</Length>
+        </Column>
+        <Column Name="TenSP">
+          <Checked>true</Checked>
+          <DataType>nvarchar</DataType>
+          <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
+            <AllowEmptyStrings>false</AllowEmptyStrings>
+            <EmptyStringProportion>10</EmptyStringProportion>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>1</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>15</SeedValue>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Expression>(Abe|Aca|Ari|Aci|Aco|Acti|Apro|Adi|Acy|Adel|Aero|Af|Alfi|Alfu|Aller|Allo|Alpo|Ace|Amci|Amfo|Anti|Azi|Ban|Bas|Bay|Beny|Beta|Bi|Bu|Bio|Calci|Candi|Capto|Carvi|Cefa|Chlor|Ciclo|Cyclo|Clo|Dox|Deco|Delta|Derma|Dermo|Dexa|Dexi|Dextro|Diclo|Di|Doxa|Doxy|Duo|Dura|Dyna|Ebi|Eco|Ena|Endo|Epi|Ery|Eto|Exo|Famo|Felo|Feno|Ferro|Fibra|Flo|Flu|Furo|Gaba|Genta|Gyno|Halo|Hapa|Hepa|Herpe|Hibi|Iru|Ibu|Inda|Indo|Infa|Influ|Inno|Inter|Iodo|Ipro|Ire|Iri|Iso|Keto|Kita|Koni|Laxo|Laste|Lefu|Levo|Lido|Lisi|Logo|Lo|Losa|Loxa|Lyo|Levo|Meco|Medi|Meli|Melo|Mepa|Metro|Mico|Mini|Mira|Mono|Moxi|Muco|Myko|Medro|Meto|Napo|Nata|Neo|Neu|Nevo|Nito|Nora|Novo|Oflo|Ome|Osa|Oxa|Oxi|Oxy|Pana|Panto|Para|Pento|Pipe|Poli|Poly|Pro|Peri|Radi|Rami|Redu|Rena|Riba|Robi|Rythmo|Septo|Serra|Sime|Syndo|Tamo|Tamsu|Teno|Tri|Tylo|Ulco|Valco|Velo|Venla|Viro|Vita|Voma|Vove|Xylo|Zale|Zapra|Zithro|Zyla|Zyto)(fa|pera|butam|carpam|chloride|hydro|thromy|peri|sil|ta|tra|cur|lon|tam|tan|clo|con|zo|ma|na|pa|dro|go|puri|dipi|si|son|sopro|spo|xa|ni|oxe)(vant|tan|bid|muc|de|dex|dine|vir|que|non|vase|tex|tec|sine|pin|ino|lat|rex|phane|zon|zyl|pren|cept|fast|fen|nor|cin|ne|pos|nal|lam|te|xol|xel|hex|lol|nide|dar|tad|zol|liq|sol|ban|dorm|dene|fen|vex|triol|xin|cose|pex)</Expression>
+          </GeneratorOptions>
+          <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
+          <GeneratorName>Drug Name</GeneratorName>
+          <GeneratorDescription>Cicloxane, Protapex, Epizonal, Chlorfacept, Adidipicin, Robiclofast, Oxipavex, ... </GeneratorDescription>
+          <GeneratorCategory>Health</GeneratorCategory>
+          <Length>20</Length>
+        </Column>
+        <Column Name="SoLuongTon">
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>1</NullProportion>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:int">1</Increment>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>14</SeedValue>
+            <MinValue>100</MinValue>
+            <MaxValue>1000</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
+          </GeneratorOptions>
+          <GeneratorType>SqlIntegerGenerator</GeneratorType>
+          <GeneratorName>int</GeneratorName>
+          <GeneratorDescription>fill with 32-bit signed integer values</GeneratorDescription>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="Mota">
+          <Checked>true</Checked>
+          <DataType>nvarchar</DataType>
+          <GeneratorOptions xsi:type="SqlLoremIpsumGeneratorOptions">
+            <AllowEmptyStrings>false</AllowEmptyStrings>
+            <EmptyStringProportion>10</EmptyStringProportion>
+            <AllowNulls>true</AllowNulls>
+            <NullProportion>66</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>16</SeedValue>
+            <MinLength>1</MinLength>
+            <MaxLength>100</MaxLength>
+            <MaxAllowedLength>1024</MaxAllowedLength>
+            <MinWordsInSentence>3</MinWordsInSentence>
+            <MaxWordsInSentence>10</MaxWordsInSentence>
+            <MinSentences>1</MinSentences>
+            <MaxSentences>10</MaxSentences>
+            <MinParagraphs>1</MinParagraphs>
+            <MaxParagraphs>3</MaxParagraphs>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <PunctuationSigns>,.!?...;</PunctuationSigns>
+            <StartParagraphWithIndent>false</StartParagraphWithIndent>
+            <AddParagraphTags>false</AddParagraphTags>
+            <AddItalicTags>false</AddItalicTags>
+            <AddBoldTags>false</AddBoldTags>
+            <AddSingleLineBreakTags>false</AddSingleLineBreakTags>
+            <AddNewLines>false</AddNewLines>
+          </GeneratorOptions>
+          <GeneratorType>SqlLoremIpsumGenerator</GeneratorType>
+          <GeneratorName>Lorem Ipsum</GeneratorName>
+          <GeneratorDescription>dummy text filler with some characteristics of a real written text</GeneratorDescription>
+          <Length>1024</Length>
+        </Column>
+        <Column Name="Gia">
+          <Checked>true</Checked>
+          <DataType>money</DataType>
+          <GeneratorOptions xsi:type="MoneyGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:decimal">1</Increment>
+            <ValueDistributionMode>Random</ValueDistributionMode>
+            <SeedValue>14</SeedValue>
+            <MinValue>1000</MinValue>
+            <MaxValue>5000</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
+          </GeneratorOptions>
+          <GeneratorType>MoneyGenerator</GeneratorType>
+          <GeneratorName>money</GeneratorName>
+          <GeneratorDescription>fill with monetary or currency values</GeneratorDescription>
+          <Scale>4</Scale>
+          <Length>8</Length>
+          <Precision>19</Precision>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.HoaDon">
+      <Checked>true</Checked>
+      <Settings>
+        <Truncate>true</Truncate>
+        <RowsToGenerate>0</RowsToGenerate>
+        <PopulationDetails>
+          <PopulationType>RowsCount</PopulationType>
+          <RowsCount>500000</RowsCount>
+          <LookupProportion>30</LookupProportion>
+          <ProportionOfExistingData>10</ProportionOfExistingData>
+          <TimeTicksToPopulate>100000000</TimeTicksToPopulate>
+        </PopulationDetails>
+      </Settings>
+      <Columns>
+        <Column Name="MaHD">
+          <Checked>true</Checked>
+          <DataType>varchar</DataType>
+          <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
+            <AllowEmptyStrings>false</AllowEmptyStrings>
+            <EmptyStringProportion>10</EmptyStringProportion>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>0</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>4</SeedValue>
+            <Unique>true</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Expression>(${counter([0-9]{7})})</Expression>
+          </GeneratorOptions>
+          <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
+          <GeneratorName>ID (numeric sequential)</GeneratorName>
+          <GeneratorDescription>00000, 00001, 00002, ..., 99997, 99998, 99999</GeneratorDescription>
+          <GeneratorCategory>Business</GeneratorCategory>
+          <Length>15</Length>
+        </Column>
+        <Column Name="MaKH">
+          <Checked>true</Checked>
+          <DataType>varchar</DataType>
+          <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <SeedValue>4</SeedValue>
+            <RepeatValues>false</RepeatValues>
+            <FromTimes>1</FromTimes>
+            <ToTimes>10</ToTimes>
+            <ExcludeValues>false</ExcludeValues>
+            <ExclusionValuesPercent>1</ExclusionValuesPercent>
+          </GeneratorOptions>
+          <GeneratorType>ForeignKeyGenerator</GeneratorType>
+          <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
+          <GeneratorDescription>references a column from parent table</GeneratorDescription>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>15</Length>
+        </Column>
+        <Column Name="NgayLap">
+          <Checked>true</Checked>
+          <DataType>date</DataType>
+          <GeneratorOptions xsi:type="DateGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <UseDefault>false</UseDefault>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>4</SeedValue>
+            <SequentialValueTicks>864000000000</SequentialValueTicks>
+            <OffsetFromColumnMaxTimeTicks>10000000</OffsetFromColumnMaxTimeTicks>
+            <OffsetFromColumnMinTimeTicks>10000000</OffsetFromColumnMinTimeTicks>
+            <DateTimeRange>MinMaxDate</DateTimeRange>
+            <UseOffsetDetails>false</UseOffsetDetails>
+            <OffsetFromColumnMinDays>0</OffsetFromColumnMinDays>
+            <OffsetFromColumnMaxDays>7</OffsetFromColumnMaxDays>
+            <MinDate>2020-01-05T00:00:00</MinDate>
+            <MaxDate>2021-01-06T00:00:00+07:00</MaxDate>
+            <IsRandomizeDate>true</IsRandomizeDate>
+          </GeneratorOptions>
+          <GeneratorType>SqlDateGenerator</GeneratorType>
+          <GeneratorName>date</GeneratorName>
+          <GeneratorDescription>fill with date values</GeneratorDescription>
+          <Length>3</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="TongTien">
+          <Checked>false</Checked>
+          <DataType>money</DataType>
+          <GeneratorOptions xsi:type="MoneyGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:decimal">1</Increment>
+            <ValueDistributionMode>Random</ValueDistributionMode>
+            <SeedValue>4</SeedValue>
+            <MinValue>0</MinValue>
+            <MaxValue>9999999</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
+          </GeneratorOptions>
+          <GeneratorType>MoneyGenerator</GeneratorType>
+          <GeneratorName>money</GeneratorName>
+          <GeneratorDescription>fill with monetary or currency values</GeneratorDescription>
+          <Scale>4</Scale>
+          <Length>8</Length>
+          <Precision>19</Precision>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.CT_HoaDon">
+      <Checked>true</Checked>
+      <Settings>
+        <Truncate>true</Truncate>
+        <RowsToGenerate>0</RowsToGenerate>
+        <PopulationDetails>
+          <PopulationType>RowsCount</PopulationType>
+          <RowsCount>1000000</RowsCount>
+          <LookupProportion>30</LookupProportion>
+          <ProportionOfExistingData>10</ProportionOfExistingData>
+          <TimeTicksToPopulate>100000000</TimeTicksToPopulate>
+        </PopulationDetails>
+      </Settings>
+      <Columns>
+        <Column Name="MaHD">
+          <Checked>true</Checked>
+          <DataType>varchar</DataType>
+          <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
+            <Unique>true</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>0</NullProportion>
+            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <SeedValue>1</SeedValue>
+            <RepeatValues>false</RepeatValues>
+            <FromTimes>1</FromTimes>
+            <ToTimes>10</ToTimes>
+            <ExcludeValues>false</ExcludeValues>
+            <ExclusionValuesPercent>1</ExclusionValuesPercent>
+          </GeneratorOptions>
+          <GeneratorType>ForeignKeyGenerator</GeneratorType>
+          <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
+          <GeneratorDescription>references a column from parent table</GeneratorDescription>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>15</Length>
+        </Column>
+        <Column Name="MaSP">
+          <Checked>true</Checked>
+          <DataType>varchar</DataType>
+          <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
+            <Unique>true</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>0</NullProportion>
+            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <SeedValue>2</SeedValue>
+            <RepeatValues>false</RepeatValues>
+            <FromTimes>1</FromTimes>
+            <ToTimes>10</ToTimes>
+            <ExcludeValues>false</ExcludeValues>
+            <ExclusionValuesPercent>1</ExclusionValuesPercent>
+          </GeneratorOptions>
+          <GeneratorType>ForeignKeyGenerator</GeneratorType>
+          <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
+          <GeneratorDescription>references a column from parent table</GeneratorDescription>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>15</Length>
+        </Column>
+        <Column Name="SoLuong">
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:int">1</Increment>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>1</SeedValue>
+            <MinValue>1</MinValue>
+            <MaxValue>50</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
+          </GeneratorOptions>
+          <GeneratorType>SqlIntegerGenerator</GeneratorType>
+          <GeneratorName>int</GeneratorName>
+          <GeneratorDescription>fill with 32-bit signed integer values</GeneratorDescription>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="GiaBan">
+          <Checked>true</Checked>
+          <DataType>money</DataType>
+          <GeneratorOptions xsi:type="MoneyGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:decimal">1</Increment>
+            <ValueDistributionMode>Random</ValueDistributionMode>
+            <SeedValue>1</SeedValue>
+            <MinValue>1000</MinValue>
+            <MaxValue>5000</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
+          </GeneratorOptions>
+          <GeneratorType>MoneyGenerator</GeneratorType>
+          <GeneratorName>money</GeneratorName>
+          <GeneratorDescription>fill with monetary or currency values</GeneratorDescription>
+          <HasCheckConstraint>true</HasCheckConstraint>
+          <Scale>4</Scale>
+          <Length>8</Length>
+          <Precision>19</Precision>
+        </Column>
+        <Column Name="GiaGiam">
+          <Checked>true</Checked>
+          <DataType>money</DataType>
+          <GeneratorOptions xsi:type="MoneyGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:decimal">1</Increment>
+            <ValueDistributionMode>Random</ValueDistributionMode>
+            <SeedValue>2</SeedValue>
+            <MinValue>0</MinValue>
+            <MaxValue>999</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue>(0)</DefaultValue>
+          </GeneratorOptions>
+          <GeneratorType>MoneyGenerator</GeneratorType>
+          <GeneratorName>money</GeneratorName>
+          <GeneratorDescription>fill with monetary or currency values</GeneratorDescription>
+          <HasCheckConstraint>true</HasCheckConstraint>
+          <Scale>4</Scale>
+          <Length>8</Length>
+          <Precision>19</Precision>
+        </Column>
+        <Column Name="ThanhTien">
+          <Checked>false</Checked>
+          <DataType>money</DataType>
+          <GeneratorOptions xsi:type="MoneyGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:decimal">1</Increment>
+            <ValueDistributionMode>Random</ValueDistributionMode>
+            <SeedValue>3</SeedValue>
+            <MinValue>0</MinValue>
+            <MaxValue>9999999</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
+          </GeneratorOptions>
+          <GeneratorType>MoneyGenerator</GeneratorType>
+          <GeneratorName>money</GeneratorName>
+          <GeneratorDescription>fill with monetary or currency values</GeneratorDescription>
+          <Scale>4</Scale>
+          <Length>8</Length>
+          <Precision>19</Precision>
+        </Column>
+      </Columns>
+    </Table>
+  </Tables>
+  <SynchronizationOptions xsi:type="SqlDataSynchronizationOptions">
+    <SynchronizeType>File</SynchronizeType>
+    <OpenScriptInEditor>true</OpenScriptInEditor>
+    <SynchronizationFileName>D:\and dob\QLHD_Gen.sql</SynchronizationFileName>
+    <ExecuteCustomScriptTypeBefore>UseEmbeddedScript</ExecuteCustomScriptTypeBefore>
+    <ExecuteCustomScriptTypeAfter>UseEmbeddedScript</ExecuteCustomScriptTypeAfter>
+    <BackupPathName>C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\Backup</BackupPathName>
+    <DisableDmlTriggers>false</DisableDmlTriggers>
+    <DisableDdlTriggers>false</DisableDdlTriggers>
+    <CompareColumnStoreTables>true</CompareColumnStoreTables>
+  </SynchronizationOptions>
+</DataGenDocument>
