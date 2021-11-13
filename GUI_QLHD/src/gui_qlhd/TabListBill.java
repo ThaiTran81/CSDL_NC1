@@ -327,10 +327,11 @@ public class TabListBill extends JPanel implements ActionListener {
         } else if (emptyHD && !emptyKH && !emptyNL) {
             lst = bf.listBillByKH_NL(userId_txt.getText(), date_txt.getText());
         } else if (!emptyHD) {
-            lst = bf.listBillByID(idBill_txt.getText());
+            Bill bill = bf.findBillById(idBill_txt.getText());
+            lst.add(bill);
         } else if (!emptyKH) {
             lst = bf.listBillByMaKH(userId_txt.getText());
-        } else {
+        } else {    
             lst = bf.listBillByNgayLap(date_txt.getText());
         }
 

@@ -22,6 +22,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
@@ -162,7 +164,10 @@ public class AddBill extends javax.swing.JPanel implements ActionListener {
         buy_btn.setText("Thêm sản phẩm");
         buy_btn.addActionListener(this);
         
+        
+        
         del_btn.setIcon(new javax.swing.ImageIcon("./Images/close.png")); // NOI18N
+//        del_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("close.png"))); // NOI18N
         del_btn.addActionListener(this);
         
         buyNum_lb.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

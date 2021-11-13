@@ -1,2 +1,0 @@
-SqlConnection.SqlConnection
-SqlConnection.SQLAcc

@@ -64,7 +64,7 @@ public class BillFunc {
         }
         return null;
     }
-
+    
     public List<Bill> listBillByID(String maHD) {
         List<Bill> lst = new ArrayList<>();
         String sql = "Select * from HoaDon where MaHD= ? "
